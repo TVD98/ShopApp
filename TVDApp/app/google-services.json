@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "361946589831",
+    "project_id": "shopapp-15111",
+    "storage_bucket": "shopapp-15111.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361946589831:android:c661f79792448566bd6622",
+        "android_client_info": {
+          "package_name": "com.example.tvdapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "361946589831-0jb2921lct1ujvreiov8jl3vtllh1uo6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ2gy7yxkBJHDhVUHkGs2qm7XlXxNcS5I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "361946589831-0jb2921lct1ujvreiov8jl3vtllh1uo6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

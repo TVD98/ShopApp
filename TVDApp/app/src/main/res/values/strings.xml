@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">TVDApp</string>
+
+    // Home Turnover
+    <string name="today_title">Hôm nay</string>
+    <string name="turnover_title">Doanh thu</string>
+    <string name="order_title">Đơn hàng</string>
+    <string name="profit_title">Lợi nhuận</string>
+    <string name="turnover_report_title">Báo cáo lãi lỗ</string>
+
+    // Home Service
+    <string name="create_order_title">Tạo đơn</string>
+    <string name="order_service_title">Đơn hàng</string>
+    <string name="product_title">Sản phẩm</string>
+    <string name="report_title">Báo cáo</string>
+    <string name="more_title">Xem thêm</string>
+
+    // Home Order
+    <string name="all_title">Tất cả</string>
+    <string name="waiting_title">Chờ xác nhận</string>
+    <string name="processing_title">Đang xử lý</string>
+
+    // Order Product
+    <string name="order_activity_title">Bán hàng</string>
+    <string name="cart_continue_title">Tiếp tục</string>
+</resources>
