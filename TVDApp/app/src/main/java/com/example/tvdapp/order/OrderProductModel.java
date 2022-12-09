@@ -15,9 +15,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,9 +27,14 @@ public class OrderProductModel {
     private List<ProductOrderViewEntity> productOrderViewEntityList = new ArrayList<>();
     private List<ProductOrderViewEntity> cart = new ArrayList<>();
     private List<ProductResponse> productResponses = new ArrayList<>();
-    private ProductResponseList response;
     private OrderProductModelEvent event;
     private DatabaseReference mDatabase;
+
+    public String confirmOrderInfoJson = "";
+
+    public List<ProductOrderViewEntity> getProductOrderViewEntityList() {
+        return productOrderViewEntityList;
+    }
 
     public void setEvent(OrderProductModelEvent event) {
         this.event = event;
@@ -56,7 +63,11 @@ public class OrderProductModel {
                 }
 
                 productOrderViewEntityList = productResponses.stream()
-                        .map(product -> new ProductOrderViewEntity(product.name, String.format("%,d", product.price), 0))
+                        .map(product -> new ProductOrderViewEntity(
+                                product.id,
+                                product.name,
+                                product.price,
+                                0))
                         .collect(Collectors.toList());
 
                 if (event != null) {
@@ -83,7 +94,7 @@ public class OrderProductModel {
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    productOrderViewEntityList.get(finalI).uri = uri;
+                    productOrderViewEntityList.get(finalI).imageLink = uri.toString();
                     if (event != null) {
                         event.fetchProductImageSuccess(finalI);
                     }
@@ -105,18 +116,9 @@ public class OrderProductModel {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private ProductResponse getProductInfoByName(String name) {
-        ProductResponse productInfo = productResponses.stream()
-                .filter(product -> product.name.compareTo(name) == 0)
-                .findAny()
-                .orElse(null);
-        return productInfo;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private String getProductTotalMoney() {
         int totalMoney = cart.stream()
-                .reduce(0, (total, product) -> total + (getProductInfoByName(product.name).price * product.count), Integer::sum);
+                .reduce(0, (total, product) -> total + (product.price * product.count), Integer::sum);
         return String.format("%,d", totalMoney);
     }
 
@@ -146,5 +148,52 @@ public class OrderProductModel {
 
     private void addProductToCart(ProductOrderViewEntity entity) {
         cart.add(entity);
+    }
+
+    public String getCartJson() {
+        Gson gson = new Gson();
+        return gson.toJson(cart);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void receiveCartFromConfirmOrder(String cartJson, String confirmOrderInfoJson) {
+        this.confirmOrderInfoJson = confirmOrderInfoJson;
+
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<ProductOrderViewEntity>>() {}.getType();
+        List<ProductOrderViewEntity> newCart = gson.fromJson(cartJson, listType);
+
+        for (ProductOrderViewEntity entity : productOrderViewEntityList) {
+            ProductOrderViewEntity result = newCart.stream()
+                    .filter(product -> product.id.compareTo(entity.id) == 0)
+                    .findAny()
+                    .orElse(null);
+
+            if (result == null) {
+                entity.count = 0;
+            } else {
+                entity.count = result.count;
+            }
+        }
+
+        if (event != null) {
+            event.fetchProductListSuccess(productOrderViewEntityList);
+        }
+
+        recreateCart();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void recreateCart() {
+        cart = new ArrayList<>();
+        for (ProductOrderViewEntity entity : productOrderViewEntityList) {
+            if (entity.count > 0) {
+                cart.add(entity);
+            }
+        }
+
+        if (event != null) {
+            event.cartDidChange(getProductCount(), getProductTotalMoney());
+        }
     }
 }

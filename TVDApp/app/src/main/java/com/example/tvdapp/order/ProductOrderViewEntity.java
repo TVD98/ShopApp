@@ -3,12 +3,14 @@ package com.example.tvdapp.order;
 import android.net.Uri;
 
 public class ProductOrderViewEntity {
+    public String id;
     public String name;
-    public String price;
-    public Uri uri;
+    public int price;
+    public String imageLink;
     public int count;
 
-    public ProductOrderViewEntity(String name, String price, int count) {
+    public ProductOrderViewEntity(String id, String name, int price, int count) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.count = count;

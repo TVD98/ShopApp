@@ -25,12 +25,21 @@ import com.example.tvdapp.home.turnover.model.TurnoverDataResponse;
 import com.example.tvdapp.home.turnover.model.TurnoverDataResponseList;
 import com.example.tvdapp.utilities.Constant;
 
+import java.util.List;
+
 public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
-    private HomeItem[] itemList;
     private Context context;
     private HomeServiceEvent homeServiceEvent;
     private HomeOrderEvent homeOrderEvent;
     private HomeTurnoverEvent homeTurnoverEvent;
+
+    public void setItemList(List<HomeItem> itemList) {
+        this.itemList = itemList;
+
+        notifyDataSetChanged();
+    }
+
+    private List<HomeItem> itemList;
 
     public void setHomeServiceEvent(HomeServiceEvent homeServiceEvent) {
         this.homeServiceEvent = homeServiceEvent;
@@ -50,21 +59,39 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
             new TurnoverDataResponse(2, 1),
     });
 
-    private ServiceDataResponseList serviceData = new ServiceDataResponseList(new ServiceDataResponse[]{
-            new ServiceDataResponse(0),
-            new ServiceDataResponse(1),
-            new ServiceDataResponse(2),
-            new ServiceDataResponse(3),
-    });
+    private ServiceDataResponseList serviceData = new ServiceDataResponseList(new ServiceDataResponse[]{});
 
-    private OrderDataResponseList orderData = new OrderDataResponseList(new OrderDataResponse[]{
-            new OrderDataResponse(0, 1),
-            new OrderDataResponse(1, 2)
-    });
+    public void setServiceData(ServiceDataResponseList serviceData) {
+        this.serviceData = serviceData;
 
-    public HomeAdapter(HomeItem[] itemList, Context context) {
+        reloadServiceView();
+    }
+
+    private OrderDataResponseList orderData = new OrderDataResponseList(new OrderDataResponse[]{});
+
+    public void setOrderData(OrderDataResponseList orderData) {
+        this.orderData = orderData;
+
+        reloadOrderView();
+    }
+
+    public HomeAdapter(List<HomeItem> itemList, Context context) {
         this.itemList = itemList;
         this.context = context;
+    }
+
+    private void reloadServiceView() {
+        int index = itemList.indexOf(HomeItem.service);
+        if (index != -1) {
+            notifyItemChanged(index);
+        }
+    }
+
+    private void reloadOrderView() {
+        int index = itemList.indexOf(HomeItem.order);
+        if (index != -1) {
+            notifyItemChanged(index);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -100,12 +127,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return itemList[position].getValue();
+        return itemList.get(position).getValue();
     }
 
     @Override
     public int getItemCount() {
-        return itemList.length;
+        return itemList.size();
     }
 
     enum HomeItem {

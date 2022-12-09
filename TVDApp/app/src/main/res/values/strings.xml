@@ -23,4 +23,24 @@
     // Order Product
     <string name="order_activity_title">Bán hàng</string>
     <string name="cart_continue_title">Tiếp tục</string>
+
+    // Confirm Order
+    <string name="confirm_order_activity_title">Xác nhận đơn hàng</string>
+    <string name="confirm_order_add_items">+ Thêm sản phẩm</string>
+    <string name="confirm_order_choose_discount">Chọn khuyến mãi</string>
+    <string name="confirm_order_choose_money_payment_methods">Tiền mặt</string>
+    <string name="confirm_order_note">Ghi chú</string>
+    <string name="confirm_order_note_placeholder">Chú thích đơn hàng</string>
+    <string name="confirm_order_customer_name">Tên người nhận</string>
+    <string name="confirm_order_address">Địa chỉ</string>
+    <string name="confirm_order_customer_name_placeholder">Nhập tên</string>
+    <string name="confirm_order_address_placeholder">Nhập địa chỉ</string>
+    <string name="confirm_order_promotion">Khuyến mãi</string>
+    <string name="confirm_order_price">Giá tiền</string>
+    <string name="confirm_order_discount">Giảm giá</string>
+    <string name="confirm_order_transition_fee">Phí vận chuyển</string>
+    <string name="confirm_order_total">Tổng thanh toán</string>
+    <string name="confirm_order_payment_methods">Phương thức thanh toán</string>
+    <string name="confirm_order_delivery_later">Giao sau</string>
+    <string name="confirm_order_quick_sell">Bán nhanh</string>
 </resources>

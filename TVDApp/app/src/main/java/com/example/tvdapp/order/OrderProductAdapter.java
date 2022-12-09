@@ -25,6 +25,12 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
     private List<ProductOrderViewEntity> entityList = new ArrayList<>();
     private OrderProductEvent event;
 
+    public void setEntityList(List<ProductOrderViewEntity> entityList) {
+        this.entityList = entityList;
+
+        notifyDataSetChanged();
+    }
+
     public OrderProductAdapter(Context context, List<ProductOrderViewEntity> entityList, OrderProductEvent event) {
         this.context = context;
         this.entityList = entityList;
@@ -126,7 +132,10 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
                 @Override
                 public void onFocusChange(View view, boolean b) {
                     if (!b) {
-                        event.endEditProductCount(getAdapterPosition());
+                        String currentCount = countEditText.getText().toString();
+                        if (currentCount.isEmpty()) {
+                            changeProductCount(0);
+                        }
                     }
                 }
             });
@@ -134,10 +143,11 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
 
         public void bindData(ProductOrderViewEntity entity) {
             nameTextView.setText(entity.name);
-            priceTextView.setText(entity.price);
+            priceTextView.setText(String.format("%,d", entity.price));
             countEditText.setText(Integer.toString(entity.count));
             Glide.with(context)
-                    .load(entity.uri)
+                    .load(entity.imageLink)
+                    .centerCrop()
                     .into(productImageView);
 
             if (entity.count == 0) {
@@ -173,7 +183,5 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
 
     interface OrderProductEvent {
         void productCurrentCountDidChange(int position, int currentCount);
-
-        void endEditProductCount(int position);
     }
 }

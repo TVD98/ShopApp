@@ -27,7 +27,7 @@ public enum TurnoverItem {
             case order:
                 return R.color.LightBlue;
             case profit:
-                return R.color.PaleGreen;
+                return R.color.background_green;
             default:
                 return R.color.black;
         }
