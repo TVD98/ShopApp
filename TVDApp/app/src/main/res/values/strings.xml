@@ -43,4 +43,7 @@
     <string name="confirm_order_payment_methods">Phương thức thanh toán</string>
     <string name="confirm_order_delivery_later">Giao sau</string>
     <string name="confirm_order_quick_sell">Bán nhanh</string>
+
+    //Product
+    <string name="detail_product_name">Tên sản phẩm * </string>
 </resources>
