@@ -54,6 +54,12 @@
 
     // Order Details
     <string name="order_details_title">Chi tiết hoá đơn</string>
+    <string name="order_details_cancel">Hủy</string>
+    <string name="order_details_delivered">Đã giao</string>
+    <string name="order_details_send_invoice">Gửi hóa đơn</string>
+    <string name="order_details_total_product">Tổng 1 sản phẩm</string>
+    <string name="order_details_discount">Khuyến mãi</string>
+    <string name="order_details_VAT">Thuế VAT</string>
 
     // Product
     <string name="product_activity_title">Quản lý sản phẩm</string>
