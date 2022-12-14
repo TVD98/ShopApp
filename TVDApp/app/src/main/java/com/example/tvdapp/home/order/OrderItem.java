@@ -4,7 +4,7 @@ import com.example.tvdapp.R;
 import com.example.tvdapp.utilities.Constant;
 
 public enum OrderItem {
-    all, waiting, processing;
+    all, waiting, processing, delivered;
 
     public int getId() {
         switch (this) {
@@ -12,6 +12,8 @@ public enum OrderItem {
                 return Constant.waitingItemValue;
             case processing:
                 return Constant.processingItemValue;
+            case delivered:
+                return Constant.deliveredItemValue;
             default:
                 return Constant.allValue;
         }
@@ -23,8 +25,10 @@ public enum OrderItem {
                 return R.string.waiting_title;
             case processing:
                 return R.string.processing_title;
+            case delivered:
+                return R.string.delivered_title;
             default:
-                return 0;
+                return R.string.all_title;
         }
     }
 }

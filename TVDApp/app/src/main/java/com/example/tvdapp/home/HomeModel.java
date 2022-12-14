@@ -4,10 +4,12 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.tvdapp.home.order.OrderItem;
 import com.example.tvdapp.home.order.model.OrderDataResponse;
 import com.example.tvdapp.home.order.model.OrderDataResponseList;
 import com.example.tvdapp.home.service.model.ServiceDataResponse;
 import com.example.tvdapp.home.service.model.ServiceDataResponseList;
+import com.example.tvdapp.orderMangager.model.OrderManagerResponse;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +27,9 @@ public class HomeModel {
 
     interface HomeModelEvent {
         void fetchHomeItemListSuccess(List<HomeAdapter.HomeItem> itemList);
+
         void fetchOrderDataListSuccess(OrderDataResponseList orderDataResponseList);
+
         void fetchServiceDataListSuccess(ServiceDataResponseList serviceDataResponseList);
     }
 
@@ -48,13 +52,13 @@ public class HomeModel {
                 HomeAdapter.HomeItem[] homeTypes = HomeAdapter.HomeItem.values();
                 List<HomeAdapter.HomeItem> homeItemList = new ArrayList<>();
                 for (String id : splitForHome) {
-                        HomeAdapter.HomeItem type = Arrays.stream(homeTypes)
-                                .filter(homeType -> homeType.getValue() == Integer.parseInt(id))
-                                .findAny()
-                                .orElse(null);
-                        if (type != null) {
-                           homeItemList.add(type);
-                        }
+                    HomeAdapter.HomeItem type = Arrays.stream(homeTypes)
+                            .filter(homeType -> homeType.getValue() == Integer.parseInt(id))
+                            .findAny()
+                            .orElse(null);
+                    if (type != null) {
+                        homeItemList.add(type);
+                    }
                 }
 
                 if (event != null) {
@@ -105,14 +109,21 @@ public class HomeModel {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<OrderDataResponse> orderDataResponseList = new ArrayList<>();
+                OrderDataResponse processingOrderResponse = new OrderDataResponse(OrderItem.processing.getId(), 0);
+                OrderDataResponse waitingOrderResponse = new OrderDataResponse(OrderItem.waiting.getId(), 0);
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    OrderDataResponse orderDataResponse = snapshot.getValue(OrderDataResponse.class);
-                    orderDataResponseList.add(orderDataResponse);
+                    OrderManagerResponse response = snapshot.getValue(OrderManagerResponse.class);
+                    if (response.statusId == processingOrderResponse.orderId) {
+                        processingOrderResponse.value += 1;
+                    } else if (response.statusId == waitingOrderResponse.orderId) {
+                        waitingOrderResponse.value += 1;
+                    }
                 }
 
                 if (event != null) {
-                    event.fetchOrderDataListSuccess(new OrderDataResponseList(orderDataResponseList.toArray(new OrderDataResponse[0])));
+                    OrderDataResponse[] orderDataResponses = new OrderDataResponse[] { waitingOrderResponse, processingOrderResponse };
+                    event.fetchOrderDataListSuccess(new OrderDataResponseList(orderDataResponses));
                 }
             }
 
@@ -122,6 +133,6 @@ public class HomeModel {
             }
         };
 
-        mDatabase.child("homeOrder").addValueEventListener(orderPostListener);
+        mDatabase.child("orders").addValueEventListener(orderPostListener);
     }
 }

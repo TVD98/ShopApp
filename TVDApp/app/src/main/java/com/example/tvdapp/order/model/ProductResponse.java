@@ -5,15 +5,17 @@ public class ProductResponse {
     public String name;
     public String imageURL;
     public int price;
+    public int costPrice;
 
     public ProductResponse() {
 
     }
 
-    public ProductResponse(String id, String name, String imageURL, int price) {
+    public ProductResponse(String id, String name, String imageURL, int price, int costPrice) {
         this.id = id;
         this.name = name;
         this.imageURL = imageURL;
         this.price = price;
+        this.costPrice = costPrice;
     }
 }

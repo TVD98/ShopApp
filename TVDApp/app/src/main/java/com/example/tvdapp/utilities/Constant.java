@@ -25,4 +25,8 @@ public class Constant {
     // Order
     public static final int waitingItemValue = 0;
     public static final int processingItemValue = 1;
+    public static final int deliveredItemValue = 2;
+
+    // Time
+    public static final String hh_mm_dd_MM_yyyy = "HH:mm dd/MM/yyyy";
 }

@@ -19,6 +19,9 @@ import com.example.tvdapp.home.service.model.ServiceDataResponseList;
 import com.example.tvdapp.home.turnover.HomeTurnoverEvent;
 import com.example.tvdapp.home.turnover.TurnoverItem;
 import com.example.tvdapp.order.OrderProductActivity;
+import com.example.tvdapp.orderMangager.OrderManagerActivity;
+import com.example.tvdapp.product.ProductActivity;
+import com.example.tvdapp.warehouse.WarehouseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +65,15 @@ public class HomeActivity extends AppCompatActivity {
                     case createOrder:
                         goToOrderActivity();
                         break;
+                    case order:
+                        goToOrderManager(0);
+                        break;
+                    case product:
+                        goToProductActivity();
+                        break;
+                    case report:
+                        goToWarehouseActivity();
+                        break;
                     default:
                         break;
                 }
@@ -71,7 +83,8 @@ public class HomeActivity extends AppCompatActivity {
         adapter.setHomeOrderEvent(new HomeOrderEvent() {
             @Override
             public void selectOrderItem(OrderItem type) {
-
+                int position = type.getId() + 1;
+                goToOrderManager(position);
             }
         });
 
@@ -104,5 +117,21 @@ public class HomeActivity extends AppCompatActivity {
     private void goToOrderActivity() {
         Intent orderIntent = new Intent(this, OrderProductActivity.class);
         startActivity(orderIntent);
+    }
+
+    private void goToOrderManager(int position) {
+        Intent orderManagerIntent = new Intent(this, OrderManagerActivity.class);
+        orderManagerIntent.putExtra("tabSelection", position);
+        startActivity(orderManagerIntent);
+    }
+
+    private void goToProductActivity() {
+        Intent productIntent = new Intent(this, ProductActivity.class);
+        startActivity(productIntent);
+    }
+
+    private void goToWarehouseActivity() {
+        Intent warehouseIntent = new Intent(this, WarehouseActivity.class);
+        startActivity(warehouseIntent);
     }
 }

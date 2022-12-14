@@ -6,11 +6,21 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.example.tvdapp.R;
+import com.example.tvdapp.home.order.OrderItem;
 import com.example.tvdapp.order.ProductOrderViewEntity;
+import com.example.tvdapp.orderMangager.model.OrderManagerResponse;
+import com.example.tvdapp.utilities.Constant;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import java.lang.reflect.Type;
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +32,11 @@ public class ConfirmOrderModel {
     private List<ProductOrderViewEntity> productOrderViewEntities = new ArrayList<>();
     private ConfirmOrderInfoEntity confirmOrderInfoEntity;
     private Context context;
+    private DatabaseReference mDatabase;
 
     public ConfirmOrderModel(Context context) {
         this.context = context;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -64,7 +76,7 @@ public class ConfirmOrderModel {
     }
 
     public ConfirmOrderInfoViewEntity getConfirmOrderInfoViewEntity() {
-        int total = confirmOrderInfoEntity.price + confirmOrderInfoEntity.transportFee - confirmOrderInfoEntity.discount.discount;
+        int total = getTotal();
         ConfirmOrderInfoViewEntity confirmOrderInfoViewEntity = new ConfirmOrderInfoViewEntity(
                 confirmOrderInfoEntity.discount.name,
                 String.format("%,d", confirmOrderInfoEntity.price),
@@ -100,5 +112,52 @@ public class ConfirmOrderModel {
 
     public void addressDidChange(String address) {
         confirmOrderInfoEntity.address = address;
+    }
+
+    private String getCustomerName() {
+        String customerName = confirmOrderInfoEntity.name;
+        if (customerName.isEmpty()) {
+            return context.getString(R.string.order_manager_no_customer_name);
+        } else {
+            return customerName;
+        }
+    }
+
+    private int getTotal() {
+        return confirmOrderInfoEntity.price + confirmOrderInfoEntity.transportFee - confirmOrderInfoEntity.discount.discount;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void quickSell() {
+        createOrder(true, OrderItem.delivered);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void deliveryLater() {
+        createOrder(false, OrderItem.processing);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void createOrder(boolean paid, OrderItem orderItem) {
+        String id = RandomStringUtils.randomAlphanumeric(6).toUpperCase();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(Constant.hh_mm_dd_MM_yyyy);
+        LocalDateTime now = LocalDateTime.now();
+
+        OrderManagerResponse item = new OrderManagerResponse(
+                id,
+                getCustomerName(),
+                confirmOrderInfoEntity.address,
+                confirmOrderInfoEntity.note,
+                dtf.format(now),
+                confirmOrderInfoEntity.price,
+                confirmOrderInfoEntity.discount.discount,
+                confirmOrderInfoEntity.transportFee,
+                getTotal(),
+                orderItem.getId(),
+                paid,
+                productOrderViewEntities
+        );
+
+        mDatabase.child(String.format("orders/%s", id)).setValue(item);
     }
 }

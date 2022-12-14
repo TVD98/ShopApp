@@ -103,26 +103,39 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
             case Constant.turnoverValue:
                 View turnoverView = inflater.inflate(R.layout.item_home_turnover, parent, false);
                 HomeTurnoverViewHolder turnoverViewHolder = new HomeTurnoverViewHolder(turnoverView, context, homeTurnoverEvent);
-                turnoverViewHolder.initModel(turnoverData);
                 return turnoverViewHolder;
             case Constant.serviceValue:
                 View serviceView = inflater.inflate(R.layout.item_home_service, parent, false);
                 HomeServiceViewHolder serviceViewHolder = new HomeServiceViewHolder(serviceView, context, homeServiceEvent);
-                serviceViewHolder.initModel(serviceData);
                 return serviceViewHolder;
             case Constant.orderValue:
                 View orderView = inflater.inflate(R.layout.item_home_order, parent, false);
                 HomeOrderViewHolder orderViewHolder = new HomeOrderViewHolder(orderView, context, homeOrderEvent);
-                orderViewHolder.initModel(orderData);
                 return orderViewHolder;
             default:
                 return null;
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
-
+        switch (getItemViewType(position)) {
+            case Constant.turnoverValue:
+                HomeTurnoverViewHolder turnoverViewHolder = (HomeTurnoverViewHolder)holder;
+                turnoverViewHolder.initModel(turnoverData);
+                break;
+            case Constant.serviceValue:
+                HomeServiceViewHolder serviceViewHolder = (HomeServiceViewHolder)holder;
+                serviceViewHolder.initModel(serviceData);
+                break;
+            case Constant.orderValue:
+                HomeOrderViewHolder orderViewHolder = (HomeOrderViewHolder) holder;
+                orderViewHolder.initModel(orderData);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

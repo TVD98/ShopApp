@@ -117,16 +117,18 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         });
 
         quickSellButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                deliveryLater();
+                quickSell();
             }
         });
 
         deliveryLaterButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                quickSell();
+                deliveryLater();
             }
         });
     }
@@ -149,12 +151,14 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void deliveryLater() {
-
+        model.deliveryLater();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void quickSell() {
-
+        model.quickSell();
     }
 
     private void backOrderProductActivity() {

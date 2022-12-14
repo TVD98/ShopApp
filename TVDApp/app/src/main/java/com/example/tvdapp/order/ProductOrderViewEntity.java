@@ -9,6 +9,9 @@ public class ProductOrderViewEntity {
     public String imageLink;
     public int count;
 
+    public ProductOrderViewEntity() {
+    }
+
     public ProductOrderViewEntity(String id, String name, int price, int count) {
         this.id = id;
         this.name = name;

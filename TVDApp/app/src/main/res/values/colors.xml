@@ -20,4 +20,7 @@
     <color name="DeepSkyBlue">#00BFFF</color>
 
     <color name="background_green">#F3FAF6</color>
+    <color name="background_yellow">#fef9c9</color>
+    <color name="text_yellow">#ffa500</color>
+    <color name="text_red">#ec8f7f</color>
 </resources>

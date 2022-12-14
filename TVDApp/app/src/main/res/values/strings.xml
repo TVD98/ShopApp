@@ -19,6 +19,7 @@
     <string name="all_title">Tất cả</string>
     <string name="waiting_title">Chờ xác nhận</string>
     <string name="processing_title">Đang xử lý</string>
+    <string name="delivered_title">Đã giao</string>
 
     // Order Product
     <string name="order_activity_title">Bán hàng</string>
@@ -43,4 +44,44 @@
     <string name="confirm_order_payment_methods">Phương thức thanh toán</string>
     <string name="confirm_order_delivery_later">Giao sau</string>
     <string name="confirm_order_quick_sell">Bán nhanh</string>
+
+    // Order Manager
+    <string name="order_manager_paid">Đã thanh toán</string>
+    <string name="order_manager_unpaid">Chưa thanh toán</string>
+    <string name="order_manager_total">Tổng cộng</string>
+    <string name="order_manager_no_customer_name">Khách lẻ</string>
+    <string name="order_manager_cancel">Huỷ bỏ</string>
+
+    // Order Details
+    <string name="order_details_title">Chi tiết hoá đơn</string>
+
+    // Product
+    <string name="product_activity_title">Quản lý sản phẩm</string>
+    <string name="product_amount_description">Kho</string>
+
+    // Edit Product
+    <string name="edit_product_activity_title">Chi tiết sản phẩm</string>
+    <string name="add_product_activity_title">Tạo sản phẩm</string>
+    <string name="edit_product_remove">Xoá</string>
+    <string name="edit_product_update">Cập nhập</string>
+    <string name="edit_product_done">Hoàn tất</string>
+    <string name="edit_product_clear">Hoàn tác</string>
+    <string name="edit_product_name">
+        <font color="#0B132B">Tên sản phẩm </font><font color="#FF0707">*</font>
+    </string>
+    <string name="edit_product_price">
+        <font color="#0B132B">Giá bán </font><font color="#FF0707">*</font>
+    </string>
+    <string name="edit_product_cost_price">
+        <font color="#0B132B">Giá vốn </font><font color="#FF0707">*</font>
+    </string>
+
+    // Warehouse
+    <string name="warehouse_activity_title">Kho hàng</string>
+    <string name="warehouse_import_product">Nhập hàng</string>
+    <string name="warehouse_export_product">Xuất hàng</string>
+    <string name="warehouse_existential_value">Giá trị tồn</string>
+    <string name="warehouse_products_count">Số lượng</string>
+    <string name="warehouse_product_code">mã sản phẩm</string>
+    <string name="warehouse_inventory">Tồn kho</string>
 </resources>
