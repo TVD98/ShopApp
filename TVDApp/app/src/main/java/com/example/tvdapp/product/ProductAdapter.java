@@ -1,22 +1,29 @@
 package com.example.tvdapp.product;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.tvdapp.R;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> implements Filterable {
     private List<ProductViewEntity> productViewEntities;
+    private List<ProductViewEntity> productViewEntitiesFiltered;
     private Context context;
     private ProductViewHolderEvent event;
 
@@ -26,11 +33,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     public ProductAdapter(List<ProductViewEntity> productViewEntities, Context context) {
         this.productViewEntities = productViewEntities;
+        this.productViewEntitiesFiltered = productViewEntities;
         this.context = context;
     }
 
     public void setProductViewEntities(List<ProductViewEntity> productViewEntities) {
         this.productViewEntities = productViewEntities;
+        this.productViewEntitiesFiltered = productViewEntities;
 
         notifyDataSetChanged();
     }
@@ -46,13 +55,40 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        ProductViewEntity entity = productViewEntities.get(position);
+        ProductViewEntity entity = productViewEntitiesFiltered.get(position);
         holder.bindData(entity);
     }
 
     @Override
     public int getItemCount() {
-        return productViewEntities.size();
+        return productViewEntitiesFiltered.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                if (charSequence.toString().isEmpty()) {
+                    productViewEntitiesFiltered = productViewEntities;
+                } else {
+                    productViewEntitiesFiltered = productViewEntities.stream()
+                            .filter(product -> product.name.contains(charSequence))
+                            .collect(Collectors.toList());
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = productViewEntitiesFiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                productViewEntitiesFiltered = (List<ProductViewEntity>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     class ProductViewHolder extends RecyclerView.ViewHolder {

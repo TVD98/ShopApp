@@ -14,6 +14,7 @@
     <string name="product_title">Sản phẩm</string>
     <string name="report_title">Báo cáo</string>
     <string name="more_title">Xem thêm</string>
+    <string name="warehouse_title">Kho hàng</string>
 
     // Home Order
     <string name="all_title">Tất cả</string>
@@ -64,6 +65,7 @@
     // Product
     <string name="product_activity_title">Quản lý sản phẩm</string>
     <string name="product_amount_description">Kho</string>
+    <string name="search_product_hint">Search by name</string>
 
     // Edit Product
     <string name="edit_product_activity_title">Chi tiết sản phẩm</string>

@@ -71,7 +71,7 @@ public class HomeActivity extends AppCompatActivity {
                     case product:
                         goToProductActivity();
                         break;
-                    case report:
+                    case warehouse:
                         goToWarehouseActivity();
                         break;
                     default:

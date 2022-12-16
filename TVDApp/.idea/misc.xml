@@ -43,6 +43,8 @@
         <entry key="app/src/main/res/layout/item_warehouse_product.xml" value="0.25" />
         <entry key="app/src/main/res/layout/order_detail_bill_info.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/order_detail_product_price_info.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/menu/main_menu.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/xml/searchable.xml" value="0.16032608695652173" />
       </map>
     </option>
   </component>
