@@ -60,15 +60,17 @@
     <string name="register_login_info">THÔNG TIN ĐĂNG NHẬP</string>
     <string name="register_user_info">THÔNG TIN CÁ NHÂN</string>
     <string name="register_account_name">Tên tài khoản <font color="#FF0707">*</font></string>
-    <string name="register_pass">Mật khẩu <font color="#FF0707">*</font></string>
-    <string name="register_pass_again">Xác nhận mật khẩu <font color="#FF0707">*</font></string>
+    <string name="register_pass">Mật khẩu</string>
+    <string name="register_pass_again">Xác nhận mật khẩu</string>
     <string name="register_employee_name">Họ tên nhân viên <font color="#FF0707">*</font></string>
-    <string name="register_gender">Giới tính <font color="#FF0707">*</font></string>
+
+    <string name="register_gender">Giới tính</string>
+
     <string name="register_position">Chức vụ <font color="#FF0707">*</font></string>
-    <string name="register_area">Khu vực <font color="#FF0707">*</font></string>
-    <string name="register_CCCD">CCCD <font color="#FF0707">*</font></string>
-    <string name="register_phone">SĐT <font color="#FF0707">*</font></string>
-    <string name="register_address">Địa chỉ <font color="#FF0707">*</font></string>
+    <string name="register_area">Khu vực</string>
+    <string name="register_CCCD">CCCD</string>
+    <string name="register_phone">SĐT</string>
+    <string name="register_address">Địa chỉ</string>
     <string name="register_cancel">HỦY</string>
     <string name="register_register">ĐĂNG KÝ</string>
 
