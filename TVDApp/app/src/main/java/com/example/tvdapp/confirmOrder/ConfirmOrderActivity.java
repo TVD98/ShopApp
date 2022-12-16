@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,15 +16,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.tvdapp.R;
-import com.example.tvdapp.confirmOrder.model.ConfirmOrderModel;
-import com.example.tvdapp.order.OrderProductActivity;
 import com.example.tvdapp.order.ProductOrderViewEntity;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+import com.example.tvdapp.orderDetails.OrderDetailActivity;
 
 public class ConfirmOrderActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -31,6 +25,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     private View bottomView;
     private Button deliveryLaterButton;
     private Button quickSellButton;
+    private ProgressDialog loadingDialog;
     private ConfirmOrderModel model = new ConfirmOrderModel(this);
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -64,6 +59,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         quickSellButton = findViewById(R.id.confirm_order_quick_sell_button);
 
         setupUI();
+        setupModel();
     }
 
     private void setupUI() {
@@ -133,12 +129,27 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         });
     }
 
+    private void setupModel() {
+        model.setEvent(new ConfirmOrderModel.ConfirmOrderModelEvent() {
+            @Override
+            public void createOrderSuccess(String orderId) {
+                loadingDialog.cancel();
+                goToOrderDetails(orderId);
+            }
+        });
+    }
+
     private void updateStatusBottomView(boolean isHide) {
         if (isHide) {
             bottomView.setVisibility(View.GONE);
         } else {
             bottomView.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void showLoadingDialog() {
+        loadingDialog = ProgressDialog.show(this, "",
+                "Uploading. Please wait...", true);
     }
 
     @Override
@@ -153,11 +164,13 @@ public class ConfirmOrderActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void deliveryLater() {
+        showLoadingDialog();
         model.deliveryLater();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void quickSell() {
+        showLoadingDialog();
         model.quickSell();
     }
 
@@ -167,5 +180,12 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         resultIntent.putExtra("info", model.getConfirmOrderInfoEntityJson());
         setResult(RESULT_OK, resultIntent);
         finish();
+    }
+
+    private void goToOrderDetails(String orderId) {
+        Intent orderDetailsIntent = new Intent(this, OrderDetailActivity.class);
+        orderDetailsIntent.putExtra("orderId", orderId);
+        orderDetailsIntent.putExtra("parentActivity", OrderDetailActivity.fromCreateOder);
+        startActivity(orderDetailsIntent);
     }
 }

@@ -1,19 +1,21 @@
 package com.example.tvdapp.orderDetails.model;
 
+import com.example.tvdapp.home.order.OrderItem;
+
 public class OrderDetailOrderInfoViewEntity {
 
-    public String codeBill = "";
-    public String dateBil = "";
-    public String statusBill = "";
-    public String priceProduct = "";
-    public String statusPayment = "";
-    public String nameCustomer = "";
-    public String imageCustomer = "";
+    public String codeBill;
+    public String dateBil;
+    public OrderItem orderItem;
+    public String priceProduct;
+    public boolean statusPayment;
+    public String nameCustomer;
+    public String imageCustomer;
 
-    public OrderDetailOrderInfoViewEntity(String codeBill, String dateBil, String statusBill, String priceProduct, String statusPayment, String nameCustomer, String imageCustomer) {
+    public OrderDetailOrderInfoViewEntity(String codeBill, String dateBil, OrderItem orderItem, String priceProduct, boolean statusPayment, String nameCustomer, String imageCustomer) {
         this.codeBill = codeBill;
         this.dateBil = dateBil;
-        this.statusBill = statusBill;
+        this.orderItem = orderItem;
         this.priceProduct = priceProduct;
         this.statusPayment = statusPayment;
         this.nameCustomer = nameCustomer;

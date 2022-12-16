@@ -20,8 +20,9 @@ public class OrderDetailPriceProductViewHolder extends  OrderDetailViewHolder{
     private Context context;
 
 
-    public OrderDetailPriceProductViewHolder(@NonNull View itemView) {
+    public OrderDetailPriceProductViewHolder(@NonNull View itemView, Context context) {
         super(itemView);
+        this.context = context;
 
         orderDetailProductImage = itemView.findViewById(R.id.order_detail_product_image);
         orderDetailProductNameText = itemView.findViewById(R.id.order_detail_product_name_text);
@@ -32,7 +33,7 @@ public class OrderDetailPriceProductViewHolder extends  OrderDetailViewHolder{
     public void bindData(OrderDetailPriceProductViewEntity orderDetailPriceProductViewEntity) {
         orderDetailProductNameText.setText(orderDetailPriceProductViewEntity.nameProduct);
         orderDetailProductPriceText.setText(orderDetailPriceProductViewEntity.priceBill);
-        orderDetailProductCountText.setText(orderDetailPriceProductViewEntity.countProduct);
+        orderDetailProductCountText.setText(Integer.toString(orderDetailPriceProductViewEntity.countProduct));
         Glide.with(context)
                 .load(orderDetailPriceProductViewEntity.imageProduct)
                 .centerCrop()

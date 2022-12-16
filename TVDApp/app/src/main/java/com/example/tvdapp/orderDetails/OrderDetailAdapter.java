@@ -1,15 +1,18 @@
 package com.example.tvdapp.orderDetails;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tvdapp.R;
 import com.example.tvdapp.orderDetails.model.OrderDetailBillInfoViewEntity;
+import com.example.tvdapp.orderDetails.model.OrderDetailOrderInfoViewEntity;
 import com.example.tvdapp.orderDetails.model.OrderDetailPriceProductViewEntity;
 
 import java.util.List;
@@ -21,13 +24,26 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailViewHold
     private final int billInfoViewType = 2;
 
     private List<OrderDetailPriceProductViewEntity> orderDetailPriceProductViewEntities;
-    private OrderDetailBillInfoViewEntity orderDetailOrderInfoViewEntity;
-    private OrderDetailPriceProductViewEntity orderDetailPriceProductViewEntity;
-
+    private OrderDetailBillInfoViewEntity orderDetailBillInfoViewEntity;
+    private OrderDetailOrderInfoViewEntity orderDetailOrderInfoViewEntity;
     private Context context;
 
-    public OrderDetailAdapter(List<OrderDetailPriceProductViewEntity> productOrderViewEntities, Context context) {
-        this.orderDetailPriceProductViewEntities = productOrderViewEntities;
+    public void setOrderDetailPriceProductViewEntities(List<OrderDetailPriceProductViewEntity> orderDetailPriceProductViewEntities) {
+        this.orderDetailPriceProductViewEntities = orderDetailPriceProductViewEntities;
+    }
+
+    public void setOrderDetailBillInfoViewEntity(OrderDetailBillInfoViewEntity orderDetailBillInfoViewEntity) {
+        this.orderDetailBillInfoViewEntity = orderDetailBillInfoViewEntity;
+    }
+
+    public void setOrderDetailOrderInfoViewEntity(OrderDetailOrderInfoViewEntity orderDetailOrderInfoViewEntity) {
+        this.orderDetailOrderInfoViewEntity = orderDetailOrderInfoViewEntity;
+    }
+
+    public OrderDetailAdapter(List<OrderDetailPriceProductViewEntity> orderDetailPriceProductViewEntities, OrderDetailBillInfoViewEntity orderDetailBillInfoViewEntity, OrderDetailOrderInfoViewEntity orderDetailOrderInfoViewEntity, Context context) {
+        this.orderDetailPriceProductViewEntities = orderDetailPriceProductViewEntities;
+        this.orderDetailBillInfoViewEntity = orderDetailBillInfoViewEntity;
+        this.orderDetailOrderInfoViewEntity = orderDetailOrderInfoViewEntity;
         this.context = context;
     }
 
@@ -38,19 +54,20 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailViewHold
         switch (viewType) {
             case orderInfoViewType:
                 View orderDetailOrderView = inflater.inflate(R.layout.item_order_detail_order_info, parent, false);
-                OrderDetailOrderInfoViewHolder orderDetailOrderInfoViewHolder = new OrderDetailOrderInfoViewHolder(orderDetailOrderView);
+                OrderDetailOrderInfoViewHolder orderDetailOrderInfoViewHolder = new OrderDetailOrderInfoViewHolder(orderDetailOrderView, context);
                 return orderDetailOrderInfoViewHolder;
             case productPriceInfoViewType:
-                View orderDetailPriceProductView = inflater.inflate(R.layout.order_detail_product_price_info, parent, false);
-                OrderDetailPriceProductViewHolder orderDetailPriceProductViewHolder = new OrderDetailPriceProductViewHolder(orderDetailPriceProductView);
+                View orderDetailPriceProductView = inflater.inflate(R.layout.item_order_detail_product_price_info, parent, false);
+                OrderDetailPriceProductViewHolder orderDetailPriceProductViewHolder = new OrderDetailPriceProductViewHolder(orderDetailPriceProductView, context);
                 return orderDetailPriceProductViewHolder;
             default:
-                View orderDetailBillInfoView = inflater.inflate(R.layout.order_detail_bill_info, parent, false);
+                View orderDetailBillInfoView = inflater.inflate(R.layout.item_order_detail_bill_info, parent, false);
                 OrderDetailBillInfoViewHolder orderDetailBillInfoViewHolder = new OrderDetailBillInfoViewHolder(orderDetailBillInfoView);
                 return orderDetailBillInfoViewHolder;
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull OrderDetailViewHolder holder, int position) {
         int viewType = getItemViewType(position);
@@ -60,7 +77,10 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailViewHold
             orderDetailPriceProductViewHolder.bindData(entity);
         } else if (viewType == billInfoViewType) {
             OrderDetailBillInfoViewHolder orderDetailBillInfoViewHolder = (OrderDetailBillInfoViewHolder) holder;
-            orderDetailBillInfoViewHolder.bindData(orderDetailOrderInfoViewEntity);
+            orderDetailBillInfoViewHolder.bindData(orderDetailBillInfoViewEntity);
+        } else {
+            OrderDetailOrderInfoViewHolder orderDetailOrderInfoViewHolder = (OrderDetailOrderInfoViewHolder) holder;
+            orderDetailOrderInfoViewHolder.bindData(orderDetailOrderInfoViewEntity);
         }
     }
 
@@ -75,9 +95,9 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailViewHold
         if (position == 0) {
             return orderInfoViewType;
         } else if (position == getItemCount() - 1) {
-            return productPriceInfoViewType;
-        } else {
             return billInfoViewType;
+        } else {
+            return productPriceInfoViewType;
         }
     }
 

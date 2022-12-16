@@ -32,7 +32,7 @@ public class OrderDetailBillInfoViewHolder extends  OrderDetailViewHolder {
     public void bindData(OrderDetailBillInfoViewEntity orderDetailBillInfoViewEntity) {
         orderDetailBillInfoPriceProductText.setText(orderDetailBillInfoViewEntity.priceProduct_billInfo);
         orderDetailBillInfoDiscountText.setText(orderDetailBillInfoViewEntity.discountBill);
-        orderDetailBillInfoVATFeeText.setText(orderDetailBillInfoViewEntity.VATfee);
+        orderDetailBillInfoVATFeeText.setText(orderDetailBillInfoViewEntity.VATFee);
         orderDetailBillInfoTransitionFeeText.setText(orderDetailBillInfoViewEntity.transitionFee);
         orderDetailBillInfoTotalText.setText(orderDetailBillInfoViewEntity.totalPayment);
 

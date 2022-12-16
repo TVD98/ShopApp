@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".orderDetails.OrderDetailsActivity">
+    tools:context=".orderDetails.OrderDetailActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/confirm_order_recycler_view"
+        android:id="@+id/order_detail_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/LightGray"
+        android:background="@color/WhiteSmoke"
         app:layout_constraintBottom_toTopOf="@id/order_detail_bottom_view"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
@@ -22,10 +22,11 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@color/white"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
-            android:id="@+id/confirm_order_delivery_later_button"
+            android:id="@+id/order_detail_cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -33,12 +34,12 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:backgroundTint="@color/SeaGreen"
-            android:textColor="@color/white"
+            android:backgroundTint="@color/LightGray"
+            android:textColor="@color/black"
             android:text="@string/order_details_cancel"/>
 
         <Button
-            android:id="@+id/confirm_order_quick_sell_button"
+            android:id="@+id/order_detail_delivered_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"

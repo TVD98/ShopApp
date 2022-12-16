@@ -16,6 +16,7 @@
         <entry key="app/src/main/res/layout/activity_order_manager.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/activity_order_product.xml" value="0.23229166666666667" />
         <entry key="app/src/main/res/layout/activity_product.xml" value="0.16032608695652173" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/activity_ware_house.xml" value="0.16032608695652173" />
         <entry key="app/src/main/res/layout/activity_warehouse.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/border.xml" value="0.24375" />
@@ -32,11 +33,16 @@
         <entry key="app/src/main/res/layout/item_home_service.xml" value="0.11854103343465046" />
         <entry key="app/src/main/res/layout/item_home_turnover.xml" value="0.3354934692382813" />
         <entry key="app/src/main/res/layout/item_order.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_order_detail_bill_info.xml" value="0.16032608695652173" />
+        <entry key="app/src/main/res/layout/item_order_detail_order_info.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/item_order_detail_product_price_info.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/item_order_manager.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/item_product.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/item_service.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/item_turnover.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/item_warehouse_product.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/order_detail_bill_info.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/order_detail_product_price_info.xml" value="0.24479166666666666" />
       </map>
     </option>
   </component>
