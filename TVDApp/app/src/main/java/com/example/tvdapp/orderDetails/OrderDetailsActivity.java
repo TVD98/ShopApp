@@ -4,12 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.tvdapp.R;
+import com.example.tvdapp.order.ProductOrderViewEntity;
+
+import java.util.List;
 
 public class OrderDetailsActivity extends AppCompatActivity {
+
+    private OrderDetailModel model = new OrderDetailModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +26,11 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_order_details);
 
+        Intent intent = getIntent();
+        model.orderId = intent.getStringExtra("orderId");
+
         initUI();
+        initModel();
     }
 
     private void setupNavigation() {
@@ -29,6 +39,16 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
     private void initUI() {
         setupNavigation();
+    }
+
+    private void initModel() {
+        model.setEvent(new OrderDetailModel.OrderDetailModelEvent() {
+            @Override
+            public void fetchDataSuccess(List<ProductOrderViewEntity> productViewEntityList) {
+
+            }
+        });
+        model.fetchData();
     }
 
     @Override
