@@ -84,4 +84,18 @@
     <string name="warehouse_products_count">Số lượng</string>
     <string name="warehouse_product_code">mã sản phẩm</string>
     <string name="warehouse_inventory">Tồn kho</string>
+    <string name="warehouse_import_product_book">Sổ nhập hàng</string>
+
+    // Confirm Import Product
+    <string name="confirm_import_product_activity_title">Tạo nhập hàng</string>
+    <string name="confirm_import_payment">Thanh toán</string>
+    <string name="confirm_import_payment_later">Trả sau</string>
+    <string name="confirm_import_product_supplier">
+        <font color="#0B132B">Nhà cung cấp </font><font color="#FF0707">*</font>
+    </string>
+    <string name="confirm_import_product_discount">Chiết khấu</string>
+    <string name="confirm_import_product_total_money">Tổng tiền hàng</string>
+    <string name="confirm_import_product_total_amount">Tổng số lượng</string>
+    <string name="confirm_import_product_costs_incurred">Chi phí phát sinh</string>
+
 </resources>

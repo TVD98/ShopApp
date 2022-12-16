@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.tvdapp.R;
+import com.example.tvdapp.confirmImportProduct.ConfirmImportProductActivity;
 import com.example.tvdapp.confirmOrder.ConfirmOrderActivity;
 
 import java.io.Serializable;
@@ -45,6 +46,12 @@ public class OrderProductActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        Intent intent = getIntent();
+        OrderActivityType type = (OrderActivityType) intent.getSerializableExtra("order_activity_type");
+        if (type == OrderActivityType.importProduct) {
+            model.type = type;
+        }
+
         setContentView(R.layout.activity_order_product);
 
         initUI();
@@ -59,18 +66,15 @@ public class OrderProductActivity extends AppCompatActivity {
         cartProductCountTextView = findViewById(R.id.cart_product_count_text);
         cartProductTotalMoneyTextView = findViewById(R.id.cart_product_total_money_text);
 
-        cartView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         setupUI();
     }
 
     private void setupNavigation() {
-        setTitle(R.string.order_activity_title);
+        if (model.type == OrderActivityType.order) {
+            setTitle(R.string.order_activity_title);
+        } else {
+            setTitle(R.string.warehouse_import_product);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -114,7 +118,11 @@ public class OrderProductActivity extends AppCompatActivity {
         cartView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToConfirmOrderActivity();
+                if (model.type == OrderActivityType.order) {
+                    goToConfirmOrderActivity();
+                } else {
+                    goToConfirmImportProductActivity();
+                }
             }
         });
     }
@@ -145,6 +153,14 @@ public class OrderProductActivity extends AppCompatActivity {
         orderIntent.putExtra("products", cartJson);
         orderIntent.putExtra("info", model.confirmOrderInfoJson);
         someActivityResultLauncher.launch(orderIntent);
+    }
+
+    private void goToConfirmImportProductActivity() {
+        Intent confirmImportProductIntent = new Intent(this, ConfirmImportProductActivity.class);
+        String cartJson = model.getCartJson();
+        confirmImportProductIntent.putExtra("products", cartJson);
+        confirmImportProductIntent.putExtra("info", model.confirmOrderInfoJson);
+        someActivityResultLauncher.launch(confirmImportProductIntent);
     }
 
     ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(

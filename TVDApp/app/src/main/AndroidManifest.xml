@@ -16,6 +16,9 @@
         android:theme="@style/Theme.TVDApp"
         tools:targetApi="31">
         <activity
+            android:name=".confirmImportProduct.ConfirmImportProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".warehouse.WarehouseActivity"
             android:exported="false" />
         <activity

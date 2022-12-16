@@ -82,7 +82,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
             }
         });
 
-        adapter.setConfirmProductViewHolderEvent(new ConfirmProductViewHolder.ConfirmProductViewHolderEvent() {
+        adapter.setConfirmProductViewHolderEvent(new ConfirmProductViewHolderEvent() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void productDidChange(ProductOrderViewEntity entity) {

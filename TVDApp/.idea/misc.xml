@@ -6,6 +6,7 @@
         <entry key="app/src/main/res/drawable/border.xml" value="0.1395" />
         <entry key="app/src/main/res/drawable/border_blue.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/provider_paths.xml" value="0.1395" />
+        <entry key="app/src/main/res/layout/activity_confirm_import_product.xml" value="0.16032608695652173" />
         <entry key="app/src/main/res/layout/activity_confirm_order.xml" value="0.16032608695652173" />
         <entry key="app/src/main/res/layout/activity_edit_product.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.24479166666666666" />
@@ -22,6 +23,7 @@
         <entry key="app/src/main/res/layout/fragment_collection_object.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/fragment_order_manager_collection.xml" value="0.16032608695652173" />
         <entry key="app/src/main/res/layout/item_add_products.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/item_confirm_import_product_info.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/item_confirm_order_info.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_confirm_product.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/item_demo.xml" value="0.24375" />
@@ -34,6 +36,7 @@
         <entry key="app/src/main/res/layout/item_product.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/item_service.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/item_turnover.xml" value="0.24375" />
+        <entry key="app/src/main/res/layout/item_warehouse_product.xml" value="0.25" />
       </map>
     </option>
   </component>
