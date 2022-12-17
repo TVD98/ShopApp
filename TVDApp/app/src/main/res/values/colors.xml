@@ -17,8 +17,9 @@
     <color name="Green">#008000</color>
     <color name="SeaGreen">#2E8B57</color>
     <color name="Red">#FF0000</color>
+    <color name="Red_status">#990000</color>
     <color name="DeepSkyBlue">#00BFFF</color>
-
+    <color name="Orange">#FF9900</color>
     <color name="background_green">#F3FAF6</color>
     <color name="background_yellow">#fef9c9</color>
     <color name="text_yellow">#ffa500</color>

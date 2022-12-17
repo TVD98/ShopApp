@@ -93,7 +93,7 @@ public class ProductModel {
                         product.id,
                         product.name,
                         product.imageURL,
-                        0,
+                        product.amount,
                         String.format("%,d", product.price)))
                 .collect(Collectors.toList());
     }

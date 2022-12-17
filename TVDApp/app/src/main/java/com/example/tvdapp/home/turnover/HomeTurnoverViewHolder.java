@@ -61,7 +61,7 @@ public class HomeTurnoverViewHolder extends HomeViewHolder {
             if (type != null) {
                 String title = context.getString(type.getStringId());
                 TurnoverViewEntity entity = new TurnoverViewEntity(type.getColorId(), title
-                        , Integer.toString(data.value), type.getImageId());
+                        , String.format("%,d", data.value), type.getImageId());
                 itemList.add(entity);
                 turnoverItems.add(type);
             }

@@ -1,4 +1,4 @@
-package com.example.tvdapp.confirmOrder.model;
+package com.example.tvdapp.confirmOrder;
 
 import android.content.Context;
 import android.os.Build;
@@ -6,10 +6,16 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.example.tvdapp.R;
+import com.example.tvdapp.confirmOrder.model.ConfirmOrderInfoEntity;
+import com.example.tvdapp.confirmOrder.model.ConfirmOrderInfoViewEntity;
+import com.example.tvdapp.confirmOrder.model.DiscountEntity;
+import com.example.tvdapp.confirmOrder.model.PaymentMethodsEntity;
 import com.example.tvdapp.home.order.OrderItem;
 import com.example.tvdapp.order.ProductOrderViewEntity;
 import com.example.tvdapp.orderMangager.model.OrderManagerResponse;
 import com.example.tvdapp.utilities.Constant;
+import com.example.tvdapp.utilities.Utilities;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
@@ -32,7 +38,12 @@ public class ConfirmOrderModel {
     private List<ProductOrderViewEntity> productOrderViewEntities = new ArrayList<>();
     private ConfirmOrderInfoEntity confirmOrderInfoEntity;
     private Context context;
+    ConfirmOrderModelEvent event;
     private DatabaseReference mDatabase;
+
+    public void setEvent(ConfirmOrderModelEvent event) {
+        this.event = event;
+    }
 
     public ConfirmOrderModel(Context context) {
         this.context = context;
@@ -140,15 +151,13 @@ public class ConfirmOrderModel {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void createOrder(boolean paid, OrderItem orderItem) {
         String id = RandomStringUtils.randomAlphanumeric(6).toUpperCase();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(Constant.hh_mm_dd_MM_yyyy);
-        LocalDateTime now = LocalDateTime.now();
 
         OrderManagerResponse item = new OrderManagerResponse(
                 id,
                 getCustomerName(),
                 confirmOrderInfoEntity.address,
                 confirmOrderInfoEntity.note,
-                dtf.format(now),
+                Utilities.getTodayString(Constant.hh_mm_dd_MM_yyyy),
                 confirmOrderInfoEntity.price,
                 confirmOrderInfoEntity.discount.discount,
                 confirmOrderInfoEntity.transportFee,
@@ -158,6 +167,17 @@ public class ConfirmOrderModel {
                 productOrderViewEntities
         );
 
-        mDatabase.child(String.format("orders/%s", id)).setValue(item);
+        mDatabase.child(String.format("orders/%s", id)).setValue(item).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                if (event != null) {
+                    event.createOrderSuccess(id);
+                }
+            }
+        });
+    }
+
+    interface ConfirmOrderModelEvent {
+        void createOrderSuccess(String orderId);
     }
 }

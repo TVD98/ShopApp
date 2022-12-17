@@ -93,8 +93,26 @@ public class WarehouseModel {
                         product.id,
                         product.name,
                         product.imageURL,
-                        0,
-                        String.format("%,d", product.price)))
+                        product.amount,
+                        String.format("%,d", product.costPrice * product.amount)))
                 .collect(Collectors.toList());
+    }
+
+    public int getProductsCount() {
+        return productResponses.size();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public String getExistentialValue() {
+        int totalMoney = productResponses.stream()
+                .reduce(0, (total, product) -> total + (product.costPrice * product.amount), Integer::sum);
+        return String.format("%,d", totalMoney);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public int getAmount() {
+        int amount = productResponses.stream()
+                .reduce(0, (total, product) -> total + product.amount, Integer::sum);
+        return amount;
     }
 }

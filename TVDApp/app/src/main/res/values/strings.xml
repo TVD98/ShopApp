@@ -14,6 +14,7 @@
     <string name="product_title">Sản phẩm</string>
     <string name="report_title">Báo cáo</string>
     <string name="more_title">Xem thêm</string>
+    <string name="warehouse_title">Kho hàng</string>
 
     // Home Order
     <string name="all_title">Tất cả</string>
@@ -54,10 +55,38 @@
 
     // Order Details
     <string name="order_details_title">Chi tiết hoá đơn</string>
+    <string name="order_details_cancel">Hủy</string>
+    <string name="order_details_delivered">Đã giao</string>
+    <string name="order_details_send_invoice">Gửi hóa đơn</string>
+    <string name="order_details_total_product">Tổng 1 sản phẩm</string>
+    <string name="order_details_discount">Khuyến mãi</string>
+    <string name="order_details_VAT">Thuế VAT</string>
+
+
+    //User
+    <string name="register_login_info">THÔNG TIN ĐĂNG NHẬP</string>
+    <string name="register_user_info">THÔNG TIN CÁ NHÂN</string>
+    <string name="register_account_name">Tên tài khoản <font color="#FF0707">*</font></string>
+    <string name="register_pass">Mật khẩu</string>
+    <string name="register_pass_again">Xác nhận mật khẩu</string>
+    <string name="register_employee_name">Họ tên nhân viên <font color="#FF0707">*</font></string>
+    <string name="register_gender">Giới tính</string>
+    <string name="register_position">Chức vụ <font color="#FF0707">*</font></string>
+    <string name="register_area">Khu vực</string>
+    <string name="register_CCCD">CCCD</string>
+    <string name="register_phone">SĐT</string>
+    <string name="register_address">Địa chỉ</string>
+    <string name="register_cancel">HỦY</string>
+    <string name="register_register">ĐĂNG KÝ</string>
+    <string name="user_manager_title">Quản lý</string>
+    <string name="user_employee_title">Nhân viên</string>
+    <string name="user_male_title">Nam</string>
+    <string name="user_female_title">Nữ</string>
 
     // Product
     <string name="product_activity_title">Quản lý sản phẩm</string>
     <string name="product_amount_description">Kho</string>
+    <string name="search_product_hint">Search by name</string>
 
     // Edit Product
     <string name="edit_product_activity_title">Chi tiết sản phẩm</string>
@@ -84,4 +113,18 @@
     <string name="warehouse_products_count">Số lượng</string>
     <string name="warehouse_product_code">mã sản phẩm</string>
     <string name="warehouse_inventory">Tồn kho</string>
+    <string name="warehouse_import_product_book">Sổ nhập hàng</string>
+
+    // Confirm Import Product
+    <string name="confirm_import_product_activity_title">Tạo nhập hàng</string>
+    <string name="confirm_import_payment">Thanh toán</string>
+    <string name="confirm_import_payment_later">Trả sau</string>
+    <string name="confirm_import_product_supplier">
+        <font color="#0B132B">Nhà cung cấp </font><font color="#FF0707">*</font>
+    </string>
+    <string name="confirm_import_product_discount">Chiết khấu</string>
+    <string name="confirm_import_product_total_money">Tổng tiền hàng</string>
+    <string name="confirm_import_product_total_amount">Tổng số lượng</string>
+    <string name="confirm_import_product_costs_incurred">Chi phí phát sinh</string>
+
 </resources>
