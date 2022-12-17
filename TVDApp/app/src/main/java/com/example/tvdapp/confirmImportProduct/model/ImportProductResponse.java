@@ -6,6 +6,7 @@ import java.util.List;
 
 public class ImportProductResponse {
     public String id;
+    public String username;
     public String supplierName;
     public String note;
     public String time;
@@ -16,8 +17,9 @@ public class ImportProductResponse {
     public boolean paymentStatus;
     public List<ProductOrderViewEntity> productOrderViewEntities;
 
-    public ImportProductResponse(String id, String supplierName, String note, String time, int price, int discount, int costsIncurred, int total, boolean paymentStatus, List<ProductOrderViewEntity> productOrderViewEntities) {
+    public ImportProductResponse(String id, String username, String supplierName, String note, String time, int price, int discount, int costsIncurred, int total, boolean paymentStatus, List<ProductOrderViewEntity> productOrderViewEntities) {
         this.id = id;
+        this.username = username;
         this.supplierName = supplierName;
         this.note = note;
         this.time = time;

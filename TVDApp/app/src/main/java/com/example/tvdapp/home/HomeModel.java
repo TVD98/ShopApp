@@ -43,7 +43,7 @@ public class HomeModel {
 
     private HomeModelEvent event;
     private DatabaseReference mDatabase;
-    private String userType = "employee";
+    public String userType = "employee";
     private List<OrderManagerResponse> orderManagerResponsesToday = new ArrayList<>();
 
     public void setEvent(HomeModelEvent event) {

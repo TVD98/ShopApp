@@ -123,6 +123,7 @@ public class ConfirmImportProductActivity extends AppCompatActivity {
     }
 
     private void setupModel() {
+        model.setContext(this);
         model.setEvent(new ConfirmImportProductModel.ConfirmImportProductModelEvent() {
             @Override
             public void createImportProductSuccess() {

@@ -1,4 +1,4 @@
-package com.example.tvdapp.Users;
+package com.example.tvdapp.users;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,8 +20,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.tvdapp.R;
-import com.example.tvdapp.home.HomeActivity;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity implements TextWatcher {
 

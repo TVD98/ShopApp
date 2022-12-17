@@ -1,4 +1,4 @@
-package com.example.tvdapp.Users;
+package com.example.tvdapp.users;
 
 import com.example.tvdapp.R;
 import com.example.tvdapp.utilities.Constant;

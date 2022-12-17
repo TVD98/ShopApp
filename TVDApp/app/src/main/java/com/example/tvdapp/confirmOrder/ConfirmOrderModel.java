@@ -14,6 +14,7 @@ import com.example.tvdapp.home.order.OrderItem;
 import com.example.tvdapp.order.ProductOrderViewEntity;
 import com.example.tvdapp.orderMangager.model.OrderManagerResponse;
 import com.example.tvdapp.utilities.Constant;
+import com.example.tvdapp.utilities.SaveSystem;
 import com.example.tvdapp.utilities.Utilities;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -154,6 +155,7 @@ public class ConfirmOrderModel {
 
         OrderManagerResponse item = new OrderManagerResponse(
                 id,
+                SaveSystem.getUsername(context),
                 getCustomerName(),
                 confirmOrderInfoEntity.address,
                 confirmOrderInfoEntity.note,

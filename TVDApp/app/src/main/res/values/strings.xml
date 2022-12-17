@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TVDApp</string>
+    <string name="app_name">Camera Shop</string>
 
     // Home Turnover
     <string name="today_title">Hôm nay</string>
@@ -15,6 +15,7 @@
     <string name="report_title">Báo cáo</string>
     <string name="more_title">Xem thêm</string>
     <string name="warehouse_title">Kho hàng</string>
+    <string name="employee_title">Nhân viên</string>
 
     // Home Order
     <string name="all_title">Tất cả</string>
@@ -126,5 +127,8 @@
     <string name="confirm_import_product_total_money">Tổng tiền hàng</string>
     <string name="confirm_import_product_total_amount">Tổng số lượng</string>
     <string name="confirm_import_product_costs_incurred">Chi phí phát sinh</string>
+
+    // Employee Manager
+    <string name="employee_manager_title">Quản lý nhân viên</string>
 
 </resources>

@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/layout/activity_confirm_import_product.xml" value="0.16032608695652173" />
         <entry key="app/src/main/res/layout/activity_confirm_order.xml" value="0.16032608695652173" />
         <entry key="app/src/main/res/layout/activity_edit_product.xml" value="0.24479166666666666" />
+        <entry key="app/src/main/res/layout/activity_employee_manager.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/activity_order.xml" value="0.15579710144927536" />
@@ -29,6 +30,7 @@
         <entry key="app/src/main/res/layout/item_confirm_product.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/item_demo.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/item_detail_product_info.xml" value="0.44358414359714676" />
+        <entry key="app/src/main/res/layout/item_employee_manager.xml" value="0.24375" />
         <entry key="app/src/main/res/layout/item_home_order.xml" value="0.375" />
         <entry key="app/src/main/res/layout/item_home_service.xml" value="0.11854103343465046" />
         <entry key="app/src/main/res/layout/item_home_turnover.xml" value="0.3354934692382813" />

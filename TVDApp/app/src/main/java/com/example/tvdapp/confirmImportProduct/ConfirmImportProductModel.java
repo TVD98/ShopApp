@@ -1,5 +1,6 @@
 package com.example.tvdapp.confirmImportProduct;
 
+import android.content.Context;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
@@ -11,6 +12,7 @@ import com.example.tvdapp.confirmOrder.model.PaymentMethodsEntity;
 import com.example.tvdapp.order.ProductOrderViewEntity;
 import com.example.tvdapp.orderMangager.model.OrderManagerResponse;
 import com.example.tvdapp.utilities.Constant;
+import com.example.tvdapp.utilities.SaveSystem;
 import com.example.tvdapp.utilities.Utilities;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -31,9 +33,14 @@ public class ConfirmImportProductModel {
     private ConfirmImportProductEntity confirmImportProductEntity;
     private ConfirmImportProductModelEvent event;
     private DatabaseReference mDatabase;
+    private Context context;
 
     public void setEvent(ConfirmImportProductModelEvent event) {
         this.event = event;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 
     public List<ProductOrderViewEntity> getProductOrderViewEntities() {
@@ -144,6 +151,7 @@ public class ConfirmImportProductModel {
 
         ImportProductResponse item = new ImportProductResponse(
                 id,
+                SaveSystem.getUsername(context),
                 viewEntity.supplierName,
                 viewEntity.note,
                 Utilities.getTodayString(Constant.hh_mm_dd_MM_yyyy),

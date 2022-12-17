@@ -1,4 +1,4 @@
-package com.example.tvdapp.Users;
+package com.example.tvdapp.users;
 
 import android.app.Activity;
 import android.view.LayoutInflater;

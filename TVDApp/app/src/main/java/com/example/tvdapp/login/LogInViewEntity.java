@@ -1,4 +1,4 @@
-package com.example.tvdapp.Users;
+package com.example.tvdapp.login;
 
 public class LogInViewEntity {
     public  String login_account;

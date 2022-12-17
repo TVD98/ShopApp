@@ -1,4 +1,4 @@
-package com.example.tvdapp.Users;
+package com.example.tvdapp.users;
 
 public class SelectionItem {
     public int id;

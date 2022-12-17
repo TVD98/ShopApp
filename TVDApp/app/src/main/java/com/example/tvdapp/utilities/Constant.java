@@ -21,7 +21,8 @@ public class Constant {
     public static final int productItemValue = 2;
     public static final int reportItemValue = 3;
     public static final int warehouseItemValue = 4;
-    public static final int moreItemValue = 5;
+    public static final int employeeItemValue = 5;
+    public static final int moreItemValue = 6;
 
     // Order
     public static final int waitingItemValue = 0;

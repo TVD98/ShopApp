@@ -18,6 +18,7 @@ import com.example.tvdapp.R;
 import com.example.tvdapp.home.HomeActivity;
 import com.example.tvdapp.home.order.OrderItem;
 import com.example.tvdapp.order.ProductOrderViewEntity;
+import com.example.tvdapp.utilities.SaveSystem;
 import com.example.tvdapp.warehouse.WarehouseActivity;
 
 import java.util.List;
@@ -134,6 +135,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     private void back() {
         if (fromActivity.compareTo(OrderDetailActivity.fromCreateOder) == 0) {
             Intent intent = new Intent(this, HomeActivity.class);
+            intent.putExtra("user_type", SaveSystem.getUserType(this));
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else {

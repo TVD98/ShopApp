@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.tvdapp.R;
+import com.example.tvdapp.employeeManager.EmployeeManagerActivity;
+import com.example.tvdapp.employeeManager.EmployeeManagerModel;
 import com.example.tvdapp.home.order.OrderItem;
 import com.example.tvdapp.home.order.model.HomeOrderEvent;
 import com.example.tvdapp.home.order.model.OrderDataResponseList;
@@ -37,6 +39,9 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        Intent intent = getIntent();
+        model.userType = intent.getStringExtra("user_type");
 
         initUI();
         setupEvent();
@@ -74,6 +79,9 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case warehouse:
                         goToWarehouseActivity();
+                        break;
+                    case employee:
+                        goToEmployeeManager();
                         break;
                     default:
                         break;
@@ -139,5 +147,10 @@ public class HomeActivity extends AppCompatActivity {
     private void goToWarehouseActivity() {
         Intent warehouseIntent = new Intent(this, WarehouseActivity.class);
         startActivity(warehouseIntent);
+    }
+
+    private void goToEmployeeManager() {
+        Intent employeeMangerIntent = new Intent(this, EmployeeManagerActivity.class);
+        startActivity(employeeMangerIntent);
     }
 }

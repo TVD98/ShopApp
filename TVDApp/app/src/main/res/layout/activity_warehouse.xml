@@ -62,7 +62,7 @@
                         android:id="@+id/warehouse_existential_value_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="6.000.000d"
+                        android:text="0d"
                         android:textAlignment="center"
                         android:textColor="@color/Green"
                         android:textSize="16dp" />
@@ -104,7 +104,7 @@
                         android:id="@+id/warehouse_products_count_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="6.000.000d"
+                        android:text="0"
                         android:textAlignment="center"
                         android:textColor="@color/Green"
                         android:textSize="16dp" />

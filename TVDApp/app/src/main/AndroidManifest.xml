@@ -16,13 +16,19 @@
         android:theme="@style/Theme.TVDApp"
         tools:targetApi="31">
         <activity
-            android:name=".LogInActivity"
+            android:name=".employeeManager.EmployeeManagerActivity"
             android:exported="false" />
         <activity
-            android:name=".Users.RegisterActivity"
-            android:exported="false"/>
+            android:name=".login.LogInActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".Users.RegisterActivity"
+            android:name=".users.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".confirmImportProduct.ConfirmImportProductActivity"
@@ -35,7 +41,7 @@
             android:exported="false" />
         <activity
             android:name=".product.ProductActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".orderDetails.OrderDetailActivity"
             android:exported="false" />
@@ -50,15 +56,7 @@
             android:exported="false" />
         <activity
             android:name=".home.HomeActivity"
-            android:exported="true">
-            
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            
-        </activity>
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -1,4 +1,4 @@
-package com.example.tvdapp.Users;
+package com.example.tvdapp.users;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -50,7 +50,8 @@ public class RegisterModel {
     }
 
     public void signUp() {
-        mDatabase.child(String.format("users/%s", registerViewEntity.account_name)).setValue(registerViewEntity).addOnSuccessListener(new OnSuccessListener<Void>() {
+        mDatabase.child(String.format("users/%s", registerViewEntity.account_name)).setValue(getUserResponse());
+        mDatabase.child(String.format("users_info/%s", registerViewEntity.account_name)).setValue(getUserInfoResponse()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 if (event != null) {
@@ -58,6 +59,26 @@ public class RegisterModel {
                 }
             }
         });
+    }
+
+    private UserResponse getUserResponse() {
+        return new UserResponse(
+                registerViewEntity.account_name,
+                registerViewEntity.pass,
+                registerViewEntity.position_employee
+        );
+    }
+
+    private UserInfoResponse getUserInfoResponse() {
+        return new UserInfoResponse(
+                registerViewEntity.account_name,
+                registerViewEntity.name_employee,
+                registerViewEntity.gender,
+                registerViewEntity.position_employee,
+                registerViewEntity.account_name,
+                registerViewEntity.cccd,
+                registerViewEntity.phone,
+                registerViewEntity.address);
     }
 
     interface RegisterModelEvent {
