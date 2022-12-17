@@ -9,13 +9,19 @@ import com.example.tvdapp.home.order.model.OrderDataResponse;
 import com.example.tvdapp.home.order.model.OrderDataResponseList;
 import com.example.tvdapp.home.service.model.ServiceDataResponse;
 import com.example.tvdapp.home.service.model.ServiceDataResponseList;
+import com.example.tvdapp.home.turnover.model.TurnoverDataResponse;
+import com.example.tvdapp.home.turnover.model.TurnoverDataResponseList;
 import com.example.tvdapp.orderMangager.model.OrderManagerResponse;
+import com.example.tvdapp.utilities.Constant;
+import com.example.tvdapp.utilities.Utilities;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,11 +37,14 @@ public class HomeModel {
         void fetchOrderDataListSuccess(OrderDataResponseList orderDataResponseList);
 
         void fetchServiceDataListSuccess(ServiceDataResponseList serviceDataResponseList);
+
+        void fetchTurnoverDataListSuccess(TurnoverDataResponseList turnoverDataResponseList);
     }
 
     private HomeModelEvent event;
     private DatabaseReference mDatabase;
     private String userType = "employee";
+    private List<OrderManagerResponse> orderManagerResponsesToday = new ArrayList<>();
 
     public void setEvent(HomeModelEvent event) {
         this.event = event;
@@ -104,16 +113,34 @@ public class HomeModel {
         mDatabase.child(userType + "/orderItem").addValueEventListener(servicePostListener);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private TurnoverDataResponseList getTurnoverDataResponseList() {
+        int price = orderManagerResponsesToday.stream()
+                .reduce(0, (total, order) -> total + order.price, Integer::sum);
+        return new TurnoverDataResponseList(new TurnoverDataResponse[]{
+                new TurnoverDataResponse(0, price),
+                new TurnoverDataResponse(1, orderManagerResponsesToday.size()),
+                new TurnoverDataResponse(2, price)
+        });
+    }
+
     private void fetchOrderDataList() {
         ValueEventListener orderPostListener = new ValueEventListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                orderManagerResponsesToday.clear();
                 OrderDataResponse processingOrderResponse = new OrderDataResponse(OrderItem.processing.getId(), 0);
                 OrderDataResponse waitingOrderResponse = new OrderDataResponse(OrderItem.waiting.getId(), 0);
 
+                String todayTime = Utilities.getTodayString(Constant.dd_MM_yyyy);
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     OrderManagerResponse response = snapshot.getValue(OrderManagerResponse.class);
+                    String time = Utilities.convertDateString(response.time, Constant.hh_mm_dd_MM_yyyy, Constant.dd_MM_yyyy);
+                    if (time.compareTo(todayTime) == 0) {
+                        orderManagerResponsesToday.add(response);
+                    }
+
                     if (response.statusId == processingOrderResponse.orderId) {
                         processingOrderResponse.value += 1;
                     } else if (response.statusId == waitingOrderResponse.orderId) {
@@ -122,8 +149,9 @@ public class HomeModel {
                 }
 
                 if (event != null) {
-                    OrderDataResponse[] orderDataResponses = new OrderDataResponse[] { waitingOrderResponse, processingOrderResponse };
+                    OrderDataResponse[] orderDataResponses = new OrderDataResponse[]{waitingOrderResponse, processingOrderResponse};
                     event.fetchOrderDataListSuccess(new OrderDataResponseList(orderDataResponses));
+                    event.fetchTurnoverDataListSuccess(getTurnoverDataResponseList());
                 }
             }
 

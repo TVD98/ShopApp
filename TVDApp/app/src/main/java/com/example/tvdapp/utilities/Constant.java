@@ -30,4 +30,5 @@ public class Constant {
 
     // Time
     public static final String hh_mm_dd_MM_yyyy = "HH:mm dd/MM/yyyy";
+    public static final String dd_MM_yyyy = "dd/MM/yyyy";
 }

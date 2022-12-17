@@ -11,6 +11,7 @@ import com.example.tvdapp.confirmOrder.model.PaymentMethodsEntity;
 import com.example.tvdapp.order.ProductOrderViewEntity;
 import com.example.tvdapp.orderMangager.model.OrderManagerResponse;
 import com.example.tvdapp.utilities.Constant;
+import com.example.tvdapp.utilities.Utilities;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -137,8 +138,6 @@ public class ConfirmImportProductModel {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void createImportProduct(boolean paid) {
         String id = RandomStringUtils.randomAlphanumeric(6).toUpperCase();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(Constant.hh_mm_dd_MM_yyyy);
-        LocalDateTime now = LocalDateTime.now();
 
         int total = getProductTotalMoney() - confirmImportProductEntity.discount.discount + confirmImportProductEntity.costsIncurred;
         ConfirmImportProductInfoViewEntity viewEntity = getConfirmImportProductViewEntity();
@@ -147,7 +146,7 @@ public class ConfirmImportProductModel {
                 id,
                 viewEntity.supplierName,
                 viewEntity.note,
-                dtf.format(now),
+                Utilities.getTodayString(Constant.hh_mm_dd_MM_yyyy),
                 confirmImportProductEntity.price,
                 confirmImportProductEntity.discount.discount,
                 confirmImportProductEntity.costsIncurred,

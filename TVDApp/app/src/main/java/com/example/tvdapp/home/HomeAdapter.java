@@ -53,11 +53,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
         this.homeTurnoverEvent = homeTurnoverEvent;
     }
 
-    private TurnoverDataResponseList turnoverData = new TurnoverDataResponseList(new TurnoverDataResponse[]{
-            new TurnoverDataResponse(0, 2),
-            new TurnoverDataResponse(1, 0),
-            new TurnoverDataResponse(2, 1),
-    });
+    private TurnoverDataResponseList turnoverData = new TurnoverDataResponseList(new TurnoverDataResponse[]{});
+
+    public void setTurnoverData(TurnoverDataResponseList turnoverData) {
+        this.turnoverData = turnoverData;
+
+        reloadTurnoverView();
+    }
 
     private ServiceDataResponseList serviceData = new ServiceDataResponseList(new ServiceDataResponse[]{});
 
@@ -89,6 +91,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
 
     private void reloadOrderView() {
         int index = itemList.indexOf(HomeItem.order);
+        if (index != -1) {
+            notifyItemChanged(index);
+        }
+    }
+
+    private void reloadTurnoverView() {
+        int index = itemList.indexOf(HomeItem.turnover);
         if (index != -1) {
             notifyItemChanged(index);
         }
