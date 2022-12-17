@@ -31,4 +31,10 @@ public class Constant {
     // Time
     public static final String hh_mm_dd_MM_yyyy = "HH:mm dd/MM/yyyy";
     public static final String dd_MM_yyyy = "dd/MM/yyyy";
+
+    // User
+    public static final int managerId = 0;
+    public static final int employeeId = 1;
+    public static final int maleId = 0;
+    public static final int femaleId = 1;
 }

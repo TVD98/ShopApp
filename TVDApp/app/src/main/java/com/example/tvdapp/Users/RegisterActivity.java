@@ -1,15 +1,19 @@
 package com.example.tvdapp.Users;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -34,38 +38,20 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
     private EditText register_address_edit;
     private Button register_signUp_button;
     private Button register_cancel_button;
-    private int selected;
-    private int selectedGender;
-
-    private RegisterViewEntity registerViewEntity = new RegisterViewEntity(
-            "",
-            "",
-            "",
-            "",
-            0,
-            0,
-            "",
-            "",
-            "",
-            ""
-    );
-
-    String arr[] = {
-            "Quản lý",
-            "Nhân viên"};
-
-    String arrGender[] = {
-            "Nam",
-            "Nu"};
+    private RegisterModel model = new RegisterModel();
+    private ProgressDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         setContentView(R.layout.activity_register);
 
         initUI();
-
-
+        setupModel();
     }
 
     private void initUI() {
@@ -96,6 +82,14 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
         register_phone_edit.addTextChangedListener(this);
         register_address_edit.addTextChangedListener(this);
 
+        SelectionItem arr[] = {
+                new SelectionItem(UserType.employee.getId(), getString(UserType.employee.getStringId()))
+        };
+
+        SelectionItem arrGender[] = {
+                new SelectionItem(SexType.male.getId(), getString(SexType.male.getStringId())),
+                new SelectionItem(SexType.female.getId(), getString(SexType.female.getStringId())),
+        };
 
         RegisterAdapter adapter = new RegisterAdapter(this, arr);
         register_position_spinner.setAdapter(adapter);
@@ -104,9 +98,8 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selected = i;
-                registerViewEntity.position_employee = i;
-                updateStatusSignUpButton(isValid());
+                model.registerViewEntity.position_employee = (int) l;
+                updateStatusSignUpButton(model.isValid());
             }
 
             @Override
@@ -122,9 +115,8 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedGender = i;
-                registerViewEntity.gender = i;
-                updateStatusSignUpButton(isValid());
+                model.registerViewEntity.gender = (int) l;
+                updateStatusSignUpButton(model.isValid());
             }
 
             @Override
@@ -136,9 +128,8 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
         register_signUp_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
-//                startActivity(intent);
-                FirebaseDatabase.getInstance().getReference().child("account").setValue(registerViewEntity);
+                showLoadingDialog();
+                model.signUp();
             }
         });
 
@@ -155,7 +146,31 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
                 register_address_edit.getText().clear();
             }
         });
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showLoadingDialog() {
+        loadingDialog = ProgressDialog.show(this, "",
+                "Uploading. Please wait...", true);
+    }
+
+    private void setupModel() {
+        model.setEvent(new RegisterModel.RegisterModelEvent() {
+            @Override
+            public void signUpSuccess() {
+                loadingDialog.cancel();
+                finish();
+            }
+        });
     }
 
 
@@ -169,20 +184,6 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        if (charSequence.length() == 0) {
-            register_account_edit.setError("Bạn bắt buộc phải nhập Tên đăng nhập");
-        } else {
-            register_account_edit.setError(null);
-        }
-
-        if (charSequence.length() == 0) {
-            register_name_edit.setError("Bạn bắt buộc phải nhập Họ tên nhân viên");
-        } else {
-            register_name_edit.setError(null);
-        }
-        //checkPassword();
-
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -190,33 +191,31 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
     public void afterTextChanged(Editable editable) {
         String text = editable.toString();
         if (editable.equals(register_account_edit.getEditableText())) {
-            registerViewEntity.account_name = text;
+            model.registerViewEntity.account_name = text;
 
         } else if (editable.equals(register_pass_edit.getEditableText())) {
-            registerViewEntity.pass = text;
+            model.registerViewEntity.pass = text;
+            checkPassword();
 
         } else if (editable.equals(register_pass_again_edit.getEditableText())) {
-            registerViewEntity.pass_again = text;
-
+            model.registerViewEntity.pass_again = text;
+            checkPassword();
         } else if (editable.equals(register_name_edit.getEditableText())) {
-            registerViewEntity.name_employee = text;
-
-
+            model.registerViewEntity.name_employee = text;
         } else if (editable.equals(register_area_edit.getEditableText())) {
-            registerViewEntity.area = text;
+            model.registerViewEntity.area = text;
 
         } else if (editable.equals(register_cccd_edit.getEditableText())) {
-            registerViewEntity.cccd = text;
+            model.registerViewEntity.cccd = text;
 
         } else if (editable.equals(register_phone_edit.getEditableText())) {
-            registerViewEntity.phone = text;
+            model.registerViewEntity.phone = text;
 
         } else if (editable.equals(register_address_edit.getEditableText())) {
-            registerViewEntity.address = text;
+            model.registerViewEntity.address = text;
         }
 
-        updateStatusSignUpButton(isValid());
-        checkPassword();
+        updateStatusSignUpButton(model.isValid());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -224,39 +223,19 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
     public void updateStatusSignUpButton(boolean isEnable) {
         if (isEnable) {
             register_signUp_button.setBackgroundColor(getColor(R.color.Green));
-            ;
             register_signUp_button.setTextColor(getResources().getColor(R.color.white));
         } else {
             register_signUp_button.setBackgroundColor(getColor(R.color.LightGray));
-            ;
             register_signUp_button.setTextColor(getResources().getColor(R.color.black));
         }
     }
 
-    private boolean isValid() {
-        if (registerViewEntity.account_name.isEmpty()) {
-            return false;
-        }
-
-
-        if (registerViewEntity.name_employee.isEmpty()) {
-            return false;
-
-        }
-        if (registerViewEntity.pass.compareTo(registerViewEntity.pass_again) != 0) {
-            return false;
-        }
-
-        return true;
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void checkPassword() {
-        if (registerViewEntity.pass.equals(registerViewEntity.pass_again)) {
-            updateStatusSignUpButton(isValid());
-
-        }else {
-            register_account_edit.setError("Mật khẩu nhập lại phải khớp với mật khẩu ");
+        if (model.isValidPassword()) {
+            register_pass_again_edit.setError(null);
+        } else {
+            register_pass_again_edit.setError("Xác nhận mật khẩu không khớp");
         }
     }
 }

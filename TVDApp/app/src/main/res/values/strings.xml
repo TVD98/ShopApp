@@ -70,9 +70,7 @@
     <string name="register_pass">Mật khẩu</string>
     <string name="register_pass_again">Xác nhận mật khẩu</string>
     <string name="register_employee_name">Họ tên nhân viên <font color="#FF0707">*</font></string>
-
     <string name="register_gender">Giới tính</string>
-
     <string name="register_position">Chức vụ <font color="#FF0707">*</font></string>
     <string name="register_area">Khu vực</string>
     <string name="register_CCCD">CCCD</string>
@@ -80,7 +78,10 @@
     <string name="register_address">Địa chỉ</string>
     <string name="register_cancel">HỦY</string>
     <string name="register_register">ĐĂNG KÝ</string>
-
+    <string name="user_manager_title">Quản lý</string>
+    <string name="user_employee_title">Nhân viên</string>
+    <string name="user_male_title">Nam</string>
+    <string name="user_female_title">Nữ</string>
 
     // Product
     <string name="product_activity_title">Quản lý sản phẩm</string>
