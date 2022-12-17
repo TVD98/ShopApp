@@ -13,10 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.tvdapp.R;
-import com.example.tvdapp.confirmOrder.ConfirmOrderActivity;
 import com.example.tvdapp.home.order.OrderItem;
 import com.example.tvdapp.order.OrderProductActivity;
-import com.example.tvdapp.orderDetails.OrderDetailsActivity;
+import com.example.tvdapp.orderDetails.OrderDetailActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -136,8 +135,9 @@ public class OrderManagerActivity extends AppCompatActivity {
     }
 
     private void goToOrderDetails(String orderId) {
-        Intent orderDetailsIntent = new Intent(this, OrderDetailsActivity.class);
+        Intent orderDetailsIntent = new Intent(this, OrderDetailActivity.class);
         orderDetailsIntent.putExtra("orderId", orderId);
+        orderDetailsIntent.putExtra("parentActivity", OrderDetailActivity.fromOrderManager);
         startActivity(orderDetailsIntent);
     }
 

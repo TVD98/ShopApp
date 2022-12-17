@@ -37,7 +37,7 @@ public class EditProductModel {
         this.event = event;
     }
 
-    private ProductResponse productResponse = new ProductResponse("", "", "", 0, 0);
+    private ProductResponse productResponse = new ProductResponse("", "", "", 0, 0, 0);
     private Uri productImageFile;
 
     public void setProductImageFile(Uri productImageFile) {

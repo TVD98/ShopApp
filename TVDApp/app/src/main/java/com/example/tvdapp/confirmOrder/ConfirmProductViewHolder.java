@@ -2,7 +2,8 @@ package com.example.tvdapp.confirmOrder;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.EditText;
+
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -81,9 +82,5 @@ public class ConfirmProductViewHolder extends ConfirmOrderViewHolder {
         entity.count = newCount;
         countTextView.setText(Integer.toString(entity.count));
         totalTextView.setText(getTotalMoney());
-    }
-
-    interface ConfirmProductViewHolderEvent {
-        void productDidChange(ProductOrderViewEntity entity);
     }
 }

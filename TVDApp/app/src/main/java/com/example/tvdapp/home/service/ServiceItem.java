@@ -4,7 +4,7 @@ import com.example.tvdapp.R;
 import com.example.tvdapp.utilities.Constant;
 
 public enum ServiceItem {
-    createOrder, order, product, report, more;
+    createOrder, order, product, report, warehouse, more;
 
     public int getId() {
         switch (this) {
@@ -16,6 +16,8 @@ public enum ServiceItem {
                 return Constant.productItemValue;
             case report:
                 return Constant.reportItemValue;
+            case warehouse:
+                return Constant.warehouseItemValue;
             case more:
                 return Constant.moreItemValue;
             default:
@@ -33,6 +35,8 @@ public enum ServiceItem {
                 return R.string.product_title;
             case report:
                 return R.string.report_title;
+            case warehouse:
+                return R.string.warehouse_title;
             case more:
                 return R.string.more_title;
             default:
@@ -50,6 +54,8 @@ public enum ServiceItem {
                 return R.drawable.box;
             case report:
                 return R.drawable.grow_up;
+            case warehouse:
+                return R.drawable.warehouse;
             case more:
                 return R.drawable.application;
             default:

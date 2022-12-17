@@ -22,19 +22,19 @@ public class ConfirmOrderAdapter extends RecyclerView.Adapter<ConfirmOrderViewHo
     private final int productViewType = 1;
     private final int infoViewType = 2;
 
-    private List<ProductOrderViewEntity> productOrderViewEntities = new ArrayList<>();
+    private List<ProductOrderViewEntity> productOrderViewEntities;
     private ConfirmOrderInfoViewEntity confirmOrderInfoViewEntity;
     private Context context;
     private ConfirmOrderAdapterEvent confirmOrderAdapterEvent;
     private AddItemsViewHolder.AddItemsViewHolderEvent addItemsViewHolderEvent;
-    private ConfirmProductViewHolder.ConfirmProductViewHolderEvent confirmProductViewHolderEvent;
+    private ConfirmProductViewHolderEvent confirmProductViewHolderEvent;
     private ConfirmInfoViewHolder.ConfirmInfoViewHolderEvent confirmInfoViewHolderEvent;
 
     public void setConfirmInfoViewHolderEvent(ConfirmInfoViewHolder.ConfirmInfoViewHolderEvent confirmInfoViewHolderEvent) {
         this.confirmInfoViewHolderEvent = confirmInfoViewHolderEvent;
     }
 
-    public void setConfirmProductViewHolderEvent(ConfirmProductViewHolder.ConfirmProductViewHolderEvent confirmProductViewHolderEvent) {
+    public void setConfirmProductViewHolderEvent(ConfirmProductViewHolderEvent confirmProductViewHolderEvent) {
         this.confirmProductViewHolderEvent = confirmProductViewHolderEvent;
     }
 

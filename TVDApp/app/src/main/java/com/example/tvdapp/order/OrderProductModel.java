@@ -30,6 +30,7 @@ public class OrderProductModel {
     private OrderProductModelEvent event;
     private DatabaseReference mDatabase;
 
+    public OrderActivityType type = OrderActivityType.order;
     public String confirmOrderInfoJson = "";
 
     public List<ProductOrderViewEntity> getProductOrderViewEntityList() {
@@ -62,13 +63,25 @@ public class OrderProductModel {
                     productResponses.add(productResponse);
                 }
 
-                productOrderViewEntityList = productResponses.stream()
-                        .map(product -> new ProductOrderViewEntity(
-                                product.id,
-                                product.name,
-                                product.price,
-                                0))
-                        .collect(Collectors.toList());
+                if (type == OrderActivityType.order) {
+                    productOrderViewEntityList = productResponses.stream()
+                            .map(product -> new ProductOrderViewEntity(
+                                    product.id,
+                                    product.name,
+                                    product.price,
+                                    0,
+                                    product.amount))
+                            .collect(Collectors.toList());
+                } else {
+                    productOrderViewEntityList = productResponses.stream()
+                            .map(product -> new ProductOrderViewEntity(
+                                    product.id,
+                                    product.name,
+                                    product.costPrice,
+                                    0,
+                                    product.amount))
+                            .collect(Collectors.toList());
+                }
 
                 if (event != null) {
                     event.fetchProductListSuccess(productOrderViewEntityList);

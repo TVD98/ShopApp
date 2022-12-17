@@ -18,6 +18,7 @@ import com.example.tvdapp.home.service.ServiceItem;
 import com.example.tvdapp.home.service.model.ServiceDataResponseList;
 import com.example.tvdapp.home.turnover.HomeTurnoverEvent;
 import com.example.tvdapp.home.turnover.TurnoverItem;
+import com.example.tvdapp.home.turnover.model.TurnoverDataResponseList;
 import com.example.tvdapp.order.OrderProductActivity;
 import com.example.tvdapp.orderMangager.OrderManagerActivity;
 import com.example.tvdapp.product.ProductActivity;
@@ -71,7 +72,7 @@ public class HomeActivity extends AppCompatActivity {
                     case product:
                         goToProductActivity();
                         break;
-                    case report:
+                    case warehouse:
                         goToWarehouseActivity();
                         break;
                     default:
@@ -110,6 +111,11 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void fetchServiceDataListSuccess(ServiceDataResponseList serviceDataResponseList) {
                 adapter.setServiceData(serviceDataResponseList);
+            }
+
+            @Override
+            public void fetchTurnoverDataListSuccess(TurnoverDataResponseList turnoverDataResponseList) {
+                adapter.setTurnoverData(turnoverDataResponseList);
             }
         });
     }

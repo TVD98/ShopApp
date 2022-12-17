@@ -20,7 +20,8 @@ public class Constant {
     public static final int orderServiceItemValue = 1;
     public static final int productItemValue = 2;
     public static final int reportItemValue = 3;
-    public static final int moreItemValue = 4;
+    public static final int warehouseItemValue = 4;
+    public static final int moreItemValue = 5;
 
     // Order
     public static final int waitingItemValue = 0;
@@ -29,4 +30,5 @@ public class Constant {
 
     // Time
     public static final String hh_mm_dd_MM_yyyy = "HH:mm dd/MM/yyyy";
+    public static final String dd_MM_yyyy = "dd/MM/yyyy";
 }
