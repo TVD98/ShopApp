@@ -27,7 +27,6 @@ public class EditProductModel {
     private StorageReference storageRef;
     private ValueEventListener productInfoListener;
 
-
     public EditProductModel() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         storageRef = FirebaseStorage.getInstance().getReference();
@@ -98,6 +97,19 @@ public class EditProductModel {
         });
     }
 
+    public void resetProductResponse() {
+        productResponse.name = "";
+        productResponse.imageURL = "";
+        productResponse.costPrice = 0;
+        productResponse.price = 0;
+
+        productImageFile = null;
+
+        if (event != null) {
+            event.productInfoDidChange(isValidProduct());
+        }
+    }
+
     public void editProduct() {
         if (productImageFile == null) {
             clearValueEventListeners();
@@ -125,7 +137,8 @@ public class EditProductModel {
     }
 
     private void uploadImage() {
-        String imageURL = String.format("product/%s", productResponse.id);
+        String imageId = RandomStringUtils.randomAlphanumeric(6).toUpperCase();
+        String imageURL = String.format("product/%s-%s", productResponse.id, imageId);
         StorageReference storageReference = storageRef.child(imageURL);
         UploadTask uploadTask = storageReference.putFile(productImageFile);
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

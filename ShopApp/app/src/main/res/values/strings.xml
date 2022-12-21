@@ -88,6 +88,8 @@
     <string name="product_activity_title">Quản lý sản phẩm</string>
     <string name="product_amount_description">Kho</string>
     <string name="search_product_hint">Search by name</string>
+    <string name="product_delete">Xoá</string>
+    <string name="product_cancel">Huỷ</string>
 
     // Edit Product
     <string name="edit_product_activity_title">Chi tiết sản phẩm</string>

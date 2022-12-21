@@ -6,6 +6,7 @@ public class ProductViewEntity {
     public String imageLink;
     public int amount;
     public String price;
+    public SelectionProductStatus selectionStatus = SelectionProductStatus.hide;
 
     public ProductViewEntity(String id, String name, String imageLink, int amount, String price) {
         this.id = id;

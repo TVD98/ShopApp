@@ -116,10 +116,11 @@ public class EditProductActivity extends AppCompatActivity implements TextWatche
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showLoadingDialog();
-
                 if (model.isEditMode()) {
+                    showLoadingDialog();
                     model.removeProduct();
+                } else {
+                    clearUI();
                 }
             }
         });
@@ -187,6 +188,21 @@ public class EditProductActivity extends AppCompatActivity implements TextWatche
         nameEditText.addTextChangedListener(this);
         priceEditText.addTextChangedListener(this);
         costPriceEditText.addTextChangedListener(this);
+    }
+
+    private void clearUI() {
+        nameEditText.removeTextChangedListener(this);
+        priceEditText.removeTextChangedListener(this);
+        costPriceEditText.removeTextChangedListener(this);
+        nameEditText.setText("");
+        priceEditText.setText("");
+        costPriceEditText.setText("");
+        nameEditText.addTextChangedListener(this);
+        priceEditText.addTextChangedListener(this);
+        costPriceEditText.addTextChangedListener(this);
+
+        model.resetProductResponse();
+        showProductImage("");
     }
 
     private void showProductImage(String imageLink) {
