@@ -173,10 +173,18 @@ public class ConfirmOrderModel {
             @Override
             public void onSuccess(Void unused) {
                 if (event != null) {
+                    updateProductAmount();
                     event.createOrderSuccess(id);
                 }
             }
         });
+    }
+
+    private void updateProductAmount() {
+        for (ProductOrderViewEntity entity : productOrderViewEntities) {
+            int newAmount = entity.amount - entity.count;
+            mDatabase.child(String.format("products/%s/amount", entity.id)).setValue(newAmount);
+        }
     }
 
     interface ConfirmOrderModelEvent {

@@ -3,6 +3,7 @@ package com.example.tvdapp.utilities;
 public class Constant {
     // Common
     public static final int allValue = -1;
+    public static final int noLimit = -1;
 
     // Home
     public static final int turnoverValue = 0;

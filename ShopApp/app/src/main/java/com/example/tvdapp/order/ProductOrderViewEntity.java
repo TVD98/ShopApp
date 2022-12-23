@@ -7,17 +7,19 @@ public class ProductOrderViewEntity {
     public String name;
     public int price;
     public String imageLink;
+    public int limit;
     public int amount;
     public int count;
 
     public ProductOrderViewEntity() {
     }
 
-    public ProductOrderViewEntity(String id, String name, int price, int count, int amount) {
+    public ProductOrderViewEntity(String id, String name, int price, int count, int amount, int limit) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.count = count;
         this.amount = amount;
+        this.limit = limit;
     }
 }

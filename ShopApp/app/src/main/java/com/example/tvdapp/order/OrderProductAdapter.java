@@ -2,7 +2,9 @@ package com.example.tvdapp.order;
 
 import android.content.Context;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.view.InputEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.tvdapp.R;
+import com.example.tvdapp.utilities.Constant;
+import com.example.tvdapp.utilities.InputFilterMinMax;
 import com.example.tvdapp.utilities.Utilities;
 
 import java.util.ArrayList;
@@ -42,7 +46,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
     public OrderProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View orderView = inflater.inflate(R.layout.item_order, parent, false);
-        OrderProductViewHolder orderViewHolder = new OrderProductViewHolder(orderView);
+        OrderProductViewHolder orderViewHolder = new OrderProductViewHolder(orderView, context);
         return orderViewHolder;
     }
 
@@ -65,9 +69,13 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
         private ImageView plusImageView;
         private View productCountView;
         private ImageView productImageView;
+        private TextView amountTextView;
+        private ProductOrderViewEntity entity;
+        private Context context;
 
-        public OrderProductViewHolder(@NonNull View itemView) {
+        public OrderProductViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
+            this.context = context;
 
             nameTextView = itemView.findViewById(R.id.order_product_name_title);
             priceTextView = itemView.findViewById(R.id.order_product_price_title);
@@ -76,6 +84,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
             minusImageView = itemView.findViewById(R.id.order_product_minus_image);
             plusImageView = itemView.findViewById(R.id.order_product_plus_image);
             productImageView = itemView.findViewById(R.id.order_product_image);
+            amountTextView = itemView.findViewById(R.id.order_product_amount_text);
 
             int widthItem = (Utilities.getScreenWidth() - 120) / 3;
             itemView.getLayoutParams().width = widthItem;
@@ -142,6 +151,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
         }
 
         public void bindData(ProductOrderViewEntity entity) {
+            this.entity = entity;
             nameTextView.setText(entity.name);
             priceTextView.setText(String.format("%,d", entity.price));
             countEditText.setText(Integer.toString(entity.count));
@@ -155,14 +165,22 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
             } else {
                 productCountView.setVisibility(View.VISIBLE);
             }
+
+            amountTextView.setText(getAmountString(entity.limit));
+
+            countEditText.setFilters(new InputFilter[]{ new InputFilterMinMax(0, entity.limit)});
         }
 
         private void changeProductCount(int currentCount) {
-            countEditText.setText(Integer.toString(currentCount));
+            int newCount = currentCount;
+            if (currentCount > entity.limit && entity.limit != Constant.noLimit) {
+                newCount = entity.limit;
+            }
+            countEditText.setText(Integer.toString(newCount));
 
-            if (productCountView.getVisibility() == View.INVISIBLE && currentCount > 0) {
+            if (productCountView.getVisibility() == View.INVISIBLE && newCount > 0) {
                 productCountView.setVisibility(View.VISIBLE);
-            } else if (productCountView.getVisibility() == View.VISIBLE && currentCount == 0) {
+            } else if (productCountView.getVisibility() == View.VISIBLE && newCount == 0) {
                 productCountView.setVisibility(View.INVISIBLE);
             }
         }
@@ -177,6 +195,19 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
             if (currentCount != -1) {
                 int newCount = currentCount + count;
                 changeProductCount(newCount);
+            }
+        }
+
+        private String getAmountString(int amount) {
+            if (amount == Constant.noLimit) {
+                return "";
+            } else {
+                if (amount == 0) {
+                    return context.getString(R.string.order_product_no_product_title);
+                } else {
+                    String description = context.getString(R.string.product_amount_description);
+                    return String.format("%s: %d", description, amount);
+                }
             }
         }
     }

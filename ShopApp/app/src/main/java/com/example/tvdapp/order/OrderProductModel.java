@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.tvdapp.order.model.ProductResponse;
 import com.example.tvdapp.order.model.ProductResponseList;
+import com.example.tvdapp.utilities.Constant;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -70,6 +71,7 @@ public class OrderProductModel {
                                     product.name,
                                     product.price,
                                     0,
+                                    product.amount,
                                     product.amount))
                             .collect(Collectors.toList());
                 } else {
@@ -79,7 +81,8 @@ public class OrderProductModel {
                                     product.name,
                                     product.costPrice,
                                     0,
-                                    product.amount))
+                                    product.amount,
+                                    Constant.noLimit))
                             .collect(Collectors.toList());
                 }
 

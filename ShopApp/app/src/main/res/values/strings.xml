@@ -26,6 +26,7 @@
     // Order Product
     <string name="order_activity_title">Bán hàng</string>
     <string name="cart_continue_title">Tiếp tục</string>
+    <string name="order_product_no_product_title">Hết hàng</string>
 
     // Confirm Order
     <string name="confirm_order_activity_title">Xác nhận đơn hàng</string>
