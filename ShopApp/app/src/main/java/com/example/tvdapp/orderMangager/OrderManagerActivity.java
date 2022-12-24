@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.example.tvdapp.R;
 import com.example.tvdapp.home.order.OrderItem;
+import com.example.tvdapp.order.OrderActivityType;
 import com.example.tvdapp.order.OrderProductActivity;
 import com.example.tvdapp.orderDetails.OrderDetailActivity;
 import com.google.android.material.tabs.TabLayout;
@@ -143,6 +144,7 @@ public class OrderManagerActivity extends AppCompatActivity {
 
     private void goToCreateOrder() {
         Intent createOrderIntent = new Intent(this, OrderProductActivity.class);
+        createOrderIntent.putExtra("order_activity_type", OrderActivityType.order);
         startActivity(createOrderIntent);
     }
 }

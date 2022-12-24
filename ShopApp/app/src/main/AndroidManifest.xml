@@ -16,6 +16,12 @@
         android:theme="@style/Theme.TVDApp"
         tools:targetApi="31">
         <activity
+            android:name=".confirmExportProduct.ConfirmExportProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".book.BookActivity"
+            android:exported="false" />
+        <activity
             android:name=".employeeManager.EmployeeManagerActivity"
             android:exported="false" />
         <activity

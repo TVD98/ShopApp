@@ -64,26 +64,40 @@ public class OrderProductModel {
                     productResponses.add(productResponse);
                 }
 
-                if (type == OrderActivityType.order) {
-                    productOrderViewEntityList = productResponses.stream()
-                            .map(product -> new ProductOrderViewEntity(
-                                    product.id,
-                                    product.name,
-                                    product.price,
-                                    0,
-                                    product.amount,
-                                    product.amount))
-                            .collect(Collectors.toList());
-                } else {
-                    productOrderViewEntityList = productResponses.stream()
-                            .map(product -> new ProductOrderViewEntity(
-                                    product.id,
-                                    product.name,
-                                    product.costPrice,
-                                    0,
-                                    product.amount,
-                                    Constant.noLimit))
-                            .collect(Collectors.toList());
+                switch (type) {
+                    case order:
+                        productOrderViewEntityList = productResponses.stream()
+                                .map(product -> new ProductOrderViewEntity(
+                                        product.id,
+                                        product.name,
+                                        product.price,
+                                        0,
+                                        product.amount,
+                                        product.amount))
+                                .collect(Collectors.toList());
+                        break;
+                    case importProduct:
+                        productOrderViewEntityList = productResponses.stream()
+                                .map(product -> new ProductOrderViewEntity(
+                                        product.id,
+                                        product.name,
+                                        product.costPrice,
+                                        0,
+                                        product.amount,
+                                        Constant.noLimit))
+                                .collect(Collectors.toList());
+                        break;
+                    default:
+                        productOrderViewEntityList = productResponses.stream()
+                                .map(product -> new ProductOrderViewEntity(
+                                        product.id,
+                                        product.name,
+                                        product.costPrice,
+                                        0,
+                                        product.amount,
+                                        product.amount))
+                                .collect(Collectors.toList());
+                        break;
                 }
 
                 if (event != null) {

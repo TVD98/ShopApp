@@ -71,10 +71,12 @@ public class ConfirmProductViewHolder extends ConfirmOrderViewHolder {
 
     private void addProductCount(int count) {
         int newCount = entity.count + count;
-        updateUIByCount(newCount);
+        if (newCount <= entity.limit) {
+            updateUIByCount(newCount);
 
-        if (event != null) {
-            event.productDidChange(entity);
+            if (event != null) {
+                event.productDidChange(entity);
+            }
         }
     }
 

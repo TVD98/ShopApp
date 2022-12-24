@@ -131,7 +131,17 @@
     <string name="confirm_import_product_total_amount">Tổng số lượng</string>
     <string name="confirm_import_product_costs_incurred">Chi phí phát sinh</string>
 
+    // Confirm Export Product
+    <string name="confirm_export_product_activity_title">Tạo xuất hàng</string>
+    <string name="confirm_export_product_title">Xuất hàng</string>
+    <string name="confirm_export_product_classify">Phân loại</string>
+    <string name="confirm_export_product_note_placeholder">Ghi chú xuất hàng</string>
+    <string name="confirm_export_product_broken">Hàng hỏng</string>
+
     // Employee Manager
     <string name="employee_manager_title">Quản lý nhân viên</string>
+
+    // Book
+    <string name="book_activity_title">Sổ nhập hàng</string>
 
 </resources>

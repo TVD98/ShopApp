@@ -1,4 +1,4 @@
-package com.example.tvdapp.confirmImportProduct;
+package com.example.tvdapp.confirmExportProduct;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -14,22 +14,22 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.tvdapp.R;
+import com.example.tvdapp.confirmImportProduct.ConfirmImportProductActivity;
 import com.example.tvdapp.confirmOrder.ConfirmProductViewHolderEvent;
-import com.example.tvdapp.editProduct.EditProductActivity;
 import com.example.tvdapp.order.ProductOrderViewEntity;
 import com.example.tvdapp.warehouse.WarehouseActivity;
 
-public class ConfirmImportProductActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class ConfirmExportProductActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private Button paymentButton;
-    private Button paymentLaterButton;
+    private ConfirmExportProductAdapter adapter;
+    private Button exportButton;
     private View bottomView;
-    private ConfirmImportProductAdapter adapter;
     private ProgressDialog loadingDialog;
-    private ConfirmImportProductModel model = new ConfirmImportProductModel();
+    private ConfirmExportProductModel model = new ConfirmExportProductModel();
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -39,7 +39,7 @@ public class ConfirmImportProductActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        setContentView(R.layout.activity_confirm_import_product);
+        setContentView(R.layout.activity_confirm_export_product);
 
         Intent intent = getIntent();
         model.parseData(
@@ -51,32 +51,26 @@ public class ConfirmImportProductActivity extends AppCompatActivity {
     }
 
     private void setupNavigation() {
-        setTitle(R.string.confirm_import_product_activity_title);
+        setTitle(R.string.confirm_export_product_activity_title);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initUI() {
         setupNavigation();
 
-        recyclerView = findViewById(R.id.confirm_import_product_recycler_view);
-        paymentButton = findViewById(R.id.confirm_import_product_payment_button);
-        paymentLaterButton = findViewById(R.id.confirm_import_product_payment_later_button);
-        bottomView = findViewById(R.id.confirm_import_product_bottom_view);
+        recyclerView = findViewById(R.id.confirm_export_product_recycler_view);
+        bottomView = findViewById(R.id.confirm_export_product_bottom_view);
+        exportButton = findViewById(R.id.confirm_export_product_export_button);
 
         setupUI();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void setupUI() {
-        adapter = new ConfirmImportProductAdapter(
+        updateStatusBottomView(false);
+
+        adapter = new ConfirmExportProductAdapter(
                 model.getProductOrderViewEntities(),
-                model.getConfirmImportProductViewEntity(),
+                model.getConfirmExportProductInfoViewEntity(),
                 this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        updateStatusBottomView(!model.isValid());
-
         adapter.setConfirmProductViewHolderEvent(new ConfirmProductViewHolderEvent() {
             @Override
             public void productDidChange(ProductOrderViewEntity entity) {
@@ -87,55 +81,41 @@ public class ConfirmImportProductActivity extends AppCompatActivity {
                         updateStatusBottomView(true);
                     }
                 }
-
-                model.updateConfirmImportProductInfoEntity();
-                adapter.bindDataToInfoView(model.getConfirmImportProductViewEntity());
             }
         });
-
-        adapter.setConfirmImportProductViewHolderEvent(new ConfirmImportProductInfoViewHolder.ConfirmImportProductViewHolderEvent() {
+        adapter.setConfirmExportProductInfoViewHolderEvent(new ConfirmExportProductInfoViewHolder.ConfirmExportProductInfoViewHolderEvent() {
             @Override
-            public void nameDidChange(String name) {
-                model.nameDidChange(name);
+            public void selectAddItems() {
+                backOrderProductActivity();
+            }
 
-                updateStatusBottomView(!model.isValid());
+            @Override
+            public void selectExportType(ExportType exportType) {
+                model.selectExportType(exportType);
             }
 
             @Override
             public void noteDidChange(String note) {
                 model.noteDidChange(note);
             }
-
-            @Override
-            public void addItems() {
-                backOrderProductActivity();
-            }
         });
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        paymentButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
+        exportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showLoadingDialog();
-                model.payment();
-            }
-        });
-
-        paymentLaterButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View view) {
-                showLoadingDialog();
-                model.paymentLater();
+                model.exportProducts();
             }
         });
     }
 
     private void setupModel() {
         model.setContext(this);
-        model.setEvent(new ConfirmImportProductModel.ConfirmImportProductModelEvent() {
+        model.setEvent(new ConfirmExportProductModel.ConfirmExportProductModelEvent() {
             @Override
-            public void createImportProductSuccess() {
+            public void exportProductsSuccess() {
                 loadingDialog.cancel();
                 backWarehouseActivity();
             }
@@ -147,6 +127,7 @@ public class ConfirmImportProductActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 backOrderProductActivity();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -161,7 +142,7 @@ public class ConfirmImportProductActivity extends AppCompatActivity {
     }
 
     private void showLoadingDialog() {
-        loadingDialog = ProgressDialog.show(ConfirmImportProductActivity.this, "",
+        loadingDialog = ProgressDialog.show(this, "",
                 "Uploading. Please wait...", true);
     }
 

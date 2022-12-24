@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.tvdapp.R;
+import com.example.tvdapp.book.BookActivity;
 import com.example.tvdapp.order.OrderActivityType;
 import com.example.tvdapp.order.OrderProductActivity;
 import com.example.tvdapp.product.ProductViewEntity;
@@ -80,14 +81,14 @@ public class WarehouseActivity extends AppCompatActivity {
         exportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                goToExportProducts();
             }
         });
 
         importProductBookView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                goToBookActivity();
             }
         });
     }
@@ -133,5 +134,16 @@ public class WarehouseActivity extends AppCompatActivity {
         Intent orderIntent = new Intent(this, OrderProductActivity.class);
         orderIntent.putExtra("order_activity_type", OrderActivityType.importProduct);
         startActivity(orderIntent);
+    }
+
+    private void goToExportProducts() {
+        Intent orderIntent = new Intent(this, OrderProductActivity.class);
+        orderIntent.putExtra("order_activity_type", OrderActivityType.exportProduct);
+        startActivity(orderIntent);
+    }
+
+    private void goToBookActivity() {
+        Intent bookIntent = new Intent(this, BookActivity.class);
+        startActivity(bookIntent);
     }
 }

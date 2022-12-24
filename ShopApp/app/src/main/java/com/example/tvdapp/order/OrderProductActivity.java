@@ -5,29 +5,24 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.BroadcastReceiver;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.tvdapp.R;
+import com.example.tvdapp.confirmExportProduct.ConfirmExportProductActivity;
 import com.example.tvdapp.confirmImportProduct.ConfirmImportProductActivity;
 import com.example.tvdapp.confirmOrder.ConfirmOrderActivity;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class OrderProductActivity extends AppCompatActivity {
@@ -48,9 +43,7 @@ public class OrderProductActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         OrderActivityType type = (OrderActivityType) intent.getSerializableExtra("order_activity_type");
-        if (type == OrderActivityType.importProduct) {
-            model.type = type;
-        }
+        model.type = type;
 
         setContentView(R.layout.activity_order_product);
 
@@ -70,10 +63,16 @@ public class OrderProductActivity extends AppCompatActivity {
     }
 
     private void setupNavigation() {
-        if (model.type == OrderActivityType.order) {
-            setTitle(R.string.order_activity_title);
-        } else {
-            setTitle(R.string.warehouse_import_product);
+        switch (model.type) {
+            case order:
+                setTitle(R.string.order_activity_title);
+                break;
+            case importProduct:
+                setTitle(R.string.warehouse_import_product);
+                break;
+            default:
+                setTitle(R.string.confirm_export_product_title);
+                break;
         }
     }
 
@@ -118,10 +117,16 @@ public class OrderProductActivity extends AppCompatActivity {
         cartView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (model.type == OrderActivityType.order) {
-                    goToConfirmOrderActivity();
-                } else {
-                    goToConfirmImportProductActivity();
+                switch (model.type) {
+                    case order:
+                        goToConfirmOrderActivity();
+                        break;
+                    case importProduct:
+                        goToConfirmImportProductActivity();
+                        break;
+                    default:
+                        goToConfirmExportProductActivity();
+                        break;
                 }
             }
         });
@@ -161,6 +166,14 @@ public class OrderProductActivity extends AppCompatActivity {
         confirmImportProductIntent.putExtra("products", cartJson);
         confirmImportProductIntent.putExtra("info", model.confirmOrderInfoJson);
         someActivityResultLauncher.launch(confirmImportProductIntent);
+    }
+
+    private void goToConfirmExportProductActivity() {
+        Intent confirmExportProductIntent = new Intent(this, ConfirmExportProductActivity.class);
+        String cartJson = model.getCartJson();
+        confirmExportProductIntent.putExtra("products", cartJson);
+        confirmExportProductIntent.putExtra("info", model.confirmOrderInfoJson);
+        someActivityResultLauncher.launch(confirmExportProductIntent);
     }
 
     ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(

@@ -77,9 +77,6 @@ public class LogInActivity extends AppCompatActivity implements TextWatcher {
                 startActivity(intentSingUp);
             }
         });
-
-        login_account_edit.setText("midori");
-        login_pass_edit.setText("123");
     }
 
     private void setupModel() {

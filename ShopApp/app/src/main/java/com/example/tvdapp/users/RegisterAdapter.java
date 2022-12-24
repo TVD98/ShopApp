@@ -1,6 +1,7 @@
 package com.example.tvdapp.users;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +12,12 @@ import com.example.tvdapp.R;
 
 public class RegisterAdapter extends BaseAdapter {
 
-    private Activity activity;//giao diện chứa gridView
+    private Context context;//giao diện chứa gridView
     private SelectionItem[] items;
 
 
-    public RegisterAdapter(Activity activity, SelectionItem[]items){
-        this.activity = activity;
+    public RegisterAdapter(Context context, SelectionItem[]items){
+        this.context = context;
         this.items = items;
     }
 
@@ -37,11 +38,11 @@ public class RegisterAdapter extends BaseAdapter {
 
     @Override
     public View getView ( int i, View view, ViewGroup viewGroup) {
-        LayoutInflater inflater = activity.getLayoutInflater();
-        view = inflater.inflate(R.layout.item_layout_spinner, null);
-        TextView tvName = view.findViewById(R.id.text_view_item);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View baseView = inflater.inflate(R.layout.item_layout_spinner, null);
+        TextView tvName = baseView.findViewById(R.id.text_view_item);
         tvName.setText(items[i].title);
 
-        return view;
+        return baseView;
     }
 }

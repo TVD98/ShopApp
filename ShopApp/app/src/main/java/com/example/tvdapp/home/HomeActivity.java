@@ -21,6 +21,7 @@ import com.example.tvdapp.home.service.model.ServiceDataResponseList;
 import com.example.tvdapp.home.turnover.HomeTurnoverEvent;
 import com.example.tvdapp.home.turnover.TurnoverItem;
 import com.example.tvdapp.home.turnover.model.TurnoverDataResponseList;
+import com.example.tvdapp.order.OrderActivityType;
 import com.example.tvdapp.order.OrderProductActivity;
 import com.example.tvdapp.orderMangager.OrderManagerActivity;
 import com.example.tvdapp.product.ProductActivity;
@@ -130,6 +131,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void goToOrderActivity() {
         Intent orderIntent = new Intent(this, OrderProductActivity.class);
+        orderIntent.putExtra("order_activity_type", OrderActivityType.order);
         startActivity(orderIntent);
     }
 

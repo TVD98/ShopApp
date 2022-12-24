@@ -17,6 +17,10 @@ public class ImportProductResponse {
     public boolean paymentStatus;
     public List<ProductOrderViewEntity> productOrderViewEntities;
 
+    public ImportProductResponse() {
+
+    }
+
     public ImportProductResponse(String id, String username, String supplierName, String note, String time, int price, int discount, int costsIncurred, int total, boolean paymentStatus, List<ProductOrderViewEntity> productOrderViewEntities) {
         this.id = id;
         this.username = username;

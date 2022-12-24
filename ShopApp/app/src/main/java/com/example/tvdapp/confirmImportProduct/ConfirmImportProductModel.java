@@ -143,6 +143,11 @@ public class ConfirmImportProductModel {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
+    public void paymentLater() {
+        createImportProduct(false);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void createImportProduct(boolean paid) {
         String id = RandomStringUtils.randomAlphanumeric(6).toUpperCase();
 

@@ -39,4 +39,8 @@ public class Constant {
     public static final int employeeId = 1;
     public static final int maleId = 0;
     public static final int femaleId = 1;
+
+    // Export Type
+    public static final int exportItemValue = 0;
+    public static final int brokenItemValue = 1;
 }
